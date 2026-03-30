@@ -2107,18 +2107,19 @@ function toggleFaq(btn) {
   }
 }
 
-// ── LAZY LOAD VIDEOS ──
+// ── LAZY LOAD VIDEOS (play/pause on visibility) ──
 (function(){
   var vidObs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
+      var vid = e.target;
       if (e.isIntersecting) {
-        var vid = e.target;
         vid.play().catch(function(){});
-        vidObs.unobserve(vid);
+      } else {
+        vid.pause();
       }
     });
-  }, { rootMargin: '200px' });
-  document.querySelectorAll('video[preload="none"]').forEach(function(v){ vidObs.observe(v); });
+  }, { rootMargin: '100px' });
+  document.querySelectorAll('video').forEach(function(v){ vidObs.observe(v); });
 })();
 
 // ── SCROLL BREADCRUMBS ──
