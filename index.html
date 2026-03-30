@@ -15,8 +15,8 @@
   --bg2:#E4D9CC;
   --bg3:#D8CFC2;
   --text:#1a1510;
-  --muted:#5a5248;
-  --hint:rgba(26,21,16,0.35);
+  --muted:#453d35;
+  --hint:rgba(26,21,16,0.5);
   --accent:#B8A5D4;
   --accent-deep:#6B58A8;
   --accent-text:#5B4A86;
@@ -101,7 +101,7 @@ section,footer{position:relative;z-index:1}
 .hero-video video{width:100%;height:100%;object-fit:cover;opacity:0.65}
 .hero-overlay{
   position:absolute;inset:0;z-index:1;
-  background:linear-gradient(to bottom,transparent 0%,rgba(237,229,218,0.6) 70%,#EDE5DA 100%);
+  background:linear-gradient(to bottom,rgba(237,229,218,0.15) 0%,rgba(237,229,218,0.7) 60%,#EDE5DA 100%);
 }
 .hero-content{position:relative;z-index:2;text-align:center;padding:2rem 1.5rem;max-width:680px}
 .hero-content .logo{
@@ -109,21 +109,22 @@ section,footer{position:relative;z-index:1}
   font-size:1.1rem;
   letter-spacing:0.3em;
   text-transform:lowercase;
-  color:var(--accent-text);
+  color:var(--accent-deep);
   margin-bottom:2rem;
-  text-shadow:0 0 30px rgba(107,88,168,0.25);
+  text-shadow:0 0 30px rgba(237,229,218,0.8), 0 1px 15px rgba(237,229,218,0.6);
 }
-.hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:var(--text)}
+.hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:var(--text);text-shadow:0 1px 20px rgba(237,229,218,0.8)}
 .hero-content h1 em{font-style:italic;color:var(--accent-text)}
 .hero-content .sub{
   font-size:clamp(0.9rem,2.2vw,1.05rem);
-  color:var(--muted);
+  color:var(--text);
   margin-bottom:2.5rem;
   max-width:540px;
   margin-left:auto;
   margin-right:auto;
   line-height:1.8;
   font-style:italic;
+  text-shadow:0 1px 20px rgba(237,229,218,0.9), 0 0 40px rgba(237,229,218,0.7);
 }
 
 /* ── WAITLIST FORM ── */
@@ -404,8 +405,8 @@ section,footer{position:relative;z-index:1}
   box-shadow:6px 6px 16px var(--neu-dark),-6px -6px 16px var(--neu-light);
 }
 .how-step:hover{
-  transform:translateY(-6px) scale(1.02);
-  box-shadow:10px 10px 30px var(--neu-dark),-10px -10px 30px var(--neu-light);
+  transform:translateY(-4px);
+  box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
 }
 .how-step .num{
   width:48px;height:48px;
@@ -417,26 +418,18 @@ section,footer{position:relative;z-index:1}
   font-weight:500;
   font-size:0.95rem;
   margin-bottom:1rem;
-  animation:numGlow 3s ease-in-out infinite;
+  box-shadow:0 4px 15px rgba(107,88,168,0.3);
 }
 .how-step:nth-child(1) .num{
   background:linear-gradient(135deg,var(--sage-light),var(--sage));
-  animation:numGlow1 3s ease-in-out infinite;
+  box-shadow:0 4px 15px rgba(90,175,160,0.3);
 }
 .how-step:nth-child(2) .num{
   background:linear-gradient(135deg,var(--accent),var(--accent-deep));
 }
 .how-step:nth-child(3) .num{
   background:linear-gradient(135deg,var(--gold-light),var(--warm));
-  animation:numGlow3 3s ease-in-out infinite;
-}
-@keyframes numGlow1{
-  0%,100%{box-shadow:0 4px 15px rgba(90,175,160,0.4)}
-  50%{box-shadow:0 6px 25px rgba(90,175,160,0.7)}
-}
-@keyframes numGlow3{
-  0%,100%{box-shadow:0 4px 15px rgba(232,184,96,0.4)}
-  50%{box-shadow:0 6px 25px rgba(232,184,96,0.7)}
+  box-shadow:0 4px 15px rgba(232,184,96,0.3);
 }
 .how-step h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.5rem}
 .how-step p{font-size:0.85rem;color:var(--muted);line-height:1.6}
@@ -541,12 +534,15 @@ section,footer{position:relative;z-index:1}
 .section-video .vid-overlay{
   position:absolute;inset:0;z-index:1;
   background:
-    linear-gradient(to bottom,var(--bg) 0%,transparent 12%,transparent 88%,var(--bg) 100%),
+    linear-gradient(to bottom,var(--bg) 0%,rgba(237,229,218,0.4) 20%,rgba(237,229,218,0.4) 80%,var(--bg) 100%),
     linear-gradient(to right,var(--bg) 0%,transparent 8%,transparent 92%,var(--bg) 100%);
 }
 .section-video > *:not(.vid-bg):not(.vid-overlay){
   position:relative;
   z-index:2;
+}
+.section-video h2,.section-video .how-sub,.section-video p{
+  text-shadow:0 1px 25px rgba(237,229,218,0.95), 0 0 50px rgba(237,229,218,0.8), 0 0 80px rgba(237,229,218,0.5);
 }
 
 /* ── QUOTE ── */
@@ -588,13 +584,13 @@ section,footer{position:relative;z-index:1}
   line-height:1.6;
   margin-bottom:1.25rem;
   position:relative;
-  text-shadow:0 1px 20px rgba(237,229,218,0.9), 0 0 40px rgba(237,229,218,0.7);
+  text-shadow:0 1px 25px rgba(237,229,218,1), 0 0 50px rgba(237,229,218,0.9), 0 0 80px rgba(237,229,218,0.6);
 }
 .quote-section .attr{
   font-size:0.85rem;
-  color:var(--muted);
+  color:var(--text);
   letter-spacing:0.05em;
-  text-shadow:0 1px 15px rgba(237,229,218,0.8);
+  text-shadow:0 1px 25px rgba(237,229,218,1), 0 0 50px rgba(237,229,218,0.8);
 }
 
 /* ── WHAT PEOPLE FEEL ── */
@@ -605,16 +601,16 @@ section,footer{position:relative;z-index:1}
 }
 .feelings h2{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(1.6rem,3.5vw,2.2rem);
+  font-size:clamp(1.8rem,4vw,2.6rem);
   font-weight:300;
   text-align:center;
-  margin-bottom:2.5rem;
+  margin-bottom:3rem;
 }
 .feelings-grid{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:1.25rem;
-  max-width:700px;
+  gap:1.5rem;
+  max-width:800px;
   margin:0 auto;
 }
 /* ── Feeling Card Base ── */
@@ -622,7 +618,7 @@ section,footer{position:relative;z-index:1}
   backdrop-filter:blur(16px);
   -webkit-backdrop-filter:blur(16px);
   border-radius:16px;
-  padding:1.75rem;
+  padding:2.25rem 2rem;
   text-align:center;
   transition:transform 0.3s ease,box-shadow 0.3s ease;
   box-shadow:5px 5px 14px var(--neu-dark),-5px -5px 14px var(--neu-light);
@@ -631,19 +627,19 @@ section,footer{position:relative;z-index:1}
   transform:translateY(-5px) scale(1.02);
   box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
 }
-.feeling-card .card-icon{margin-bottom:0.85rem;display:flex;justify-content:center}
-.feeling-card .card-icon svg{width:36px;height:36px}
+.feeling-card .card-icon{margin-bottom:1rem;display:flex;justify-content:center}
+.feeling-card .card-icon svg{width:52px;height:52px}
 .feeling-card h4{
   font-family:'Cormorant Garamond',serif;
-  font-size:1.05rem;
+  font-size:1.3rem;
   font-weight:400;
-  margin-bottom:0.5rem;
+  margin-bottom:0.6rem;
   color:var(--text);
 }
 .feeling-card p{
-  font-size:0.8rem;
-  color:var(--muted);
-  line-height:1.5;
+  font-size:0.9rem;
+  color:var(--text);
+  line-height:1.6;
 }
 
 /* Card 1: warm orange/amber */
@@ -763,9 +759,9 @@ section,footer{position:relative;z-index:1}
   align-items:flex-start;
   gap:0.75rem;
   padding:0.75rem 0;
-  border-bottom:1px solid rgba(0,0,0,0.04);
-  font-size:0.92rem;
-  color:var(--muted);
+  border-bottom:1px solid rgba(0,0,0,0.06);
+  font-size:0.95rem;
+  color:var(--text);
   line-height:1.6;
 }
 .who-list li .who-check{
@@ -776,12 +772,12 @@ section,footer{position:relative;z-index:1}
 }
 .who-not{
   text-align:center;
-  font-size:0.82rem;
-  color:var(--hint);
+  font-size:0.85rem;
+  color:var(--muted);
   line-height:1.7;
   padding:1.25rem;
-  background:rgba(232,128,144,0.06);
-  border:1px solid rgba(232,128,144,0.12);
+  background:rgba(232,128,144,0.08);
+  border:1px solid rgba(232,128,144,0.18);
   border-radius:12px;
 }
 
@@ -793,20 +789,22 @@ section,footer{position:relative;z-index:1}
 }
 .section-cta a{
   display:inline-block;
-  font-size:0.82rem;
-  color:var(--accent-text);
+  font-size:0.85rem;
+  color:var(--accent-deep);
   text-decoration:none;
-  padding:0.5rem 1.5rem;
-  border:1px solid rgba(184,165,212,0.3);
+  padding:0.55rem 1.6rem;
+  border:1.5px solid rgba(107,88,168,0.35);
   border-radius:20px;
   transition:all 0.3s;
   cursor:pointer;
-  background:transparent;
+  background:rgba(255,255,255,0.5);
+  backdrop-filter:blur(8px);
   font-family:'DM Sans',sans-serif;
+  font-weight:400;
 }
 .section-cta a:hover{
-  background:rgba(184,165,212,0.1);
-  border-color:rgba(184,165,212,0.5);
+  background:rgba(184,165,212,0.2);
+  border-color:rgba(107,88,168,0.5);
 }
 
 /* ── CRISIS FOOTER ── */
@@ -837,8 +835,8 @@ section,footer{position:relative;z-index:1}
   margin-bottom:0.5rem;
   position:relative;
 }
-.bottom-cta h2 em{font-style:italic;color:var(--accent-text)}
-.bottom-cta p{color:var(--muted);margin-bottom:2rem;font-size:0.95rem;position:relative}
+.bottom-cta h2 em{font-style:italic;color:var(--accent-deep)}
+.bottom-cta p{color:var(--text);margin-bottom:2rem;font-size:0.95rem;position:relative}
 .bottom-cta .waitlist{max-width:380px;position:relative}
 
 /* ── STICKY MOBILE CTA ── */
@@ -1370,7 +1368,7 @@ footer .footer-logo{
 <!-- ══════ HERO ══════ -->
 <section class="hero">
   <div class="hero-video">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="auto">
       <source src="assets/breathing-loop.webm" type="video/webm">
       <source src="assets/breathing-loop.mp4" type="video/mp4">
     </video>
@@ -1468,7 +1466,7 @@ footer .footer-logo{
 <!-- ══════ HOW IT WORKS ══════ -->
 <section class="how section-video">
   <div class="vid-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="none">
       <source src="assets/water-loop.webm" type="video/webm">
       <source src="assets/water-loop.mp4" type="video/mp4">
     </video>
@@ -1527,7 +1525,7 @@ footer .footer-logo{
 <!-- ══════ ANALYTICS PHONES ══════ -->
 <section class="analytics-section section-video reveal">
   <div class="vid-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="none">
       <source src="assets/fingertips-loop.webm" type="video/webm">
       <source src="assets/fingertips-loop.mp4" type="video/mp4">
     </video>
@@ -1646,7 +1644,7 @@ footer .footer-logo{
 <!-- ══════ QUOTE ══════ -->
 <section class="quote-section section-video reveal">
   <div class="vid-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="none">
       <source src="assets/eyes-loop.webm" type="video/webm">
       <source src="assets/eyes-loop.mp4" type="video/mp4">
     </video>
@@ -1755,7 +1753,7 @@ footer .footer-logo{
 <!-- ══════ BOTTOM CTA ══════ -->
 <section class="bottom-cta section-video">
   <div class="vid-bg">
-    <video autoplay muted loop playsinline>
+    <video autoplay muted loop playsinline preload="none">
       <source src="assets/belly-loop.webm" type="video/webm">
       <source src="assets/belly-loop.mp4" type="video/mp4">
     </video>
@@ -2124,6 +2122,20 @@ function toggleFaq(btn) {
     answer.classList.add('open');
   }
 }
+
+// ── LAZY LOAD VIDEOS ──
+(function(){
+  var vidObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting) {
+        var vid = e.target;
+        vid.play().catch(function(){});
+        vidObs.unobserve(vid);
+      }
+    });
+  }, { rootMargin: '200px' });
+  document.querySelectorAll('video[preload="none"]').forEach(function(v){ vidObs.observe(v); });
+})();
 
 // ── SCROLL BREADCRUMBS ──
 (function(){
