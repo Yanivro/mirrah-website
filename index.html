@@ -2122,18 +2122,40 @@ function toggleFaq(btn) {
   }
 }
 
-// ── LAZY LOAD VIDEOS (play/pause on visibility) ──
+// ── DEVICE-AWARE VIDEO LOADING ──
 (function(){
+  // Detect low-end devices
+  var mem = navigator.deviceMemory || 8; // defaults to 8 if unsupported
+  var cores = navigator.hardwareConcurrency || 4;
+  var isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+  var isLowEnd = mem <= 4 || cores <= 2;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var slowNetwork = navigator.connection && /2g|slow-2g/.test(navigator.connection.effectiveType);
+
+  if ((isMobile && isLowEnd) || saveData || slowNetwork) {
+    // Remove all videos on low-end devices — don't even load them
+    document.querySelectorAll('.vid-bg').forEach(function(el){ el.remove(); });
+    document.querySelectorAll('.hero-video').forEach(function(el){ el.remove(); });
+    return;
+  }
+
+  // For capable devices: play/pause on visibility, only 1 video at a time
+  var currentVideo = null;
   var vidObs = new IntersectionObserver(function(entries){
     entries.forEach(function(e){
       var vid = e.target;
       if (e.isIntersecting) {
+        // Pause previous video before playing new one
+        if (currentVideo && currentVideo !== vid) {
+          currentVideo.pause();
+        }
         vid.play().catch(function(){});
+        currentVideo = vid;
       } else {
         vid.pause();
       }
     });
-  }, { rootMargin: '100px' });
+  }, { rootMargin: '50px', threshold: 0.1 });
   document.querySelectorAll('video').forEach(function(v){ vidObs.observe(v); });
 })();
 
