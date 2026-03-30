@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mirrah — the app that meets you mid-spiral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#EDE5DA;
+  --bg2:#E4D9CC;
+  --bg3:#D8CFC2;
+  --text:#1a1510;
+  --muted:#5a5248;
+  --hint:rgba(26,21,16,0.35);
+  --accent:#B8A5D4;
+  --accent-deep:#6B58A8;
+  --accent-text:#5B4A86;
+  --sage:#5AAFA0;
+  --sage-dark:#7EA88A;
+  --sage-light:#C0E0D4;
+  --sage-pale:rgba(192,224,212,0.3);
+  --warm:#E8B860;
+  --warm-deep:#F0A050;
+  --warm-pale:rgba(232,184,96,0.15);
+  --peach:#F0C8B0;
+  --peach-pale:rgba(240,200,176,0.3);
+  --pink:#E88090;
+  --pink-pale:rgba(232,128,144,0.12);
+  --gold:#E8C840;
+  --gold-light:#F0D898;
+  --lavender:#D4C0E8;
+  --lavender-pale:rgba(184,165,212,0.2);
+  --glass:rgba(255,255,255,0.55);
+  --glass-strong:rgba(255,255,255,0.82);
+  --glass-border:rgba(0,0,0,0.06);
+  --neu-light:#fff;
+  --neu-dark:#d8d4cf;
+  --coral:#C4725A;
+  --teal-an:#6AADA0;
+  --lavender-an:#B8A5D4;
+  --gold-an:#E8B878;
+  --surface:#F0ECE7;
+  --textPrimary:#3a3530;
+  --textSecondary:#6a6560;
+  --textTertiary:#9a9590;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.7;max-width:100vw}
+
+/* ── AMBIENT BLOBS ── */
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.ambient .b{position:absolute;border-radius:50% 40% 60% 50%;filter:blur(100px);opacity:0.25}
+.ambient .b1{width:550px;height:550px;background:#9B7ED8;top:-100px;left:-150px;animation:drift1 40s ease-in-out infinite}
+.ambient .b2{width:450px;height:450px;background:#5AAFA0;bottom:-100px;right:-100px;animation:drift2 45s ease-in-out infinite}
+.ambient .b3{width:380px;height:380px;background:#F0A050;top:50%;left:60%;animation:drift3 38s ease-in-out infinite}
+.ambient .b4{display:none}
+.ambient .b5{display:none}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(80px,60px) scale(1.1)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-60px,-80px) scale(1.15)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-40px,50px) scale(0.9)}}
+@keyframes drift4{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(50px,-40px) scale(1.08)}}
+
+/* All sections above ambient */
+section,footer{position:relative;z-index:1}
+
+/* ── FLOAT ANIMATION ── */
+@keyframes float{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+@keyframes floatSlow{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-8px)}
+}
+@keyframes glowPulse{
+  0%,100%{box-shadow:0 4px 20px rgba(107,88,168,0.3)}
+  50%{box-shadow:0 4px 30px rgba(107,88,168,0.5)}
+}
+@keyframes numGlow{
+  0%,100%{box-shadow:0 4px 15px rgba(184,165,212,0.4)}
+  50%{box-shadow:0 6px 25px rgba(184,165,212,0.7)}
+}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  min-height:100vh;
+  padding-bottom:6rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  z-index:2;
+}
+.hero-video{position:absolute;inset:0;z-index:0}
+.hero-video video{width:100%;height:100%;object-fit:cover;opacity:0.65}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to bottom,transparent 0%,rgba(237,229,218,0.6) 70%,#EDE5DA 100%);
+}
+.hero-content{position:relative;z-index:2;text-align:center;padding:2rem 1.5rem;max-width:680px}
+.hero-content .logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  letter-spacing:0.3em;
+  text-transform:lowercase;
+  color:var(--accent-text);
+  margin-bottom:2rem;
+  text-shadow:0 0 30px rgba(107,88,168,0.25);
+}
+.hero-content h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:300;line-height:1.2;margin-bottom:1.5rem;color:var(--text)}
+.hero-content h1 em{font-style:italic;color:var(--accent-text)}
+.hero-content .sub{
+  font-size:clamp(0.9rem,2.2vw,1.05rem);
+  color:var(--muted);
+  margin-bottom:2.5rem;
+  max-width:540px;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.8;
+  font-style:italic;
+}
+
+/* ── WAITLIST FORM ── */
+.waitlist{
+  background:var(--glass-strong);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:1.75rem 2rem;
+  max-width:420px;
+  margin:0 auto;
+  box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
+}
+.waitlist h3{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:400;text-align:center;margin-bottom:1.25rem;color:var(--text)}
+.waitlist input{width:100%;padding:0.75rem 1rem;border:1px solid var(--glass-border);border-radius:10px;background:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:300;color:var(--text);margin-bottom:0.75rem;outline:none;transition:border 0.2s,box-shadow 0.2s;box-shadow:inset 2px 2px 5px rgba(0,0,0,0.04),inset -2px -2px 5px rgba(255,255,255,0.8)}
+.waitlist input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(184,165,212,0.15),inset 2px 2px 5px rgba(0,0,0,0.04)}
+.waitlist input::placeholder{color:var(--hint)}
+.waitlist button{
+  width:100%;padding:0.85rem;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-deep),#8B6EC0);
+  color:white;font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:400;
+  cursor:pointer;transition:all 0.3s;margin-top:0.25rem;
+  box-shadow:0 4px 20px rgba(107,88,168,0.35),0 2px 8px rgba(107,88,168,0.2);
+  animation:glowPulse 4s ease-in-out infinite;
+}
+.waitlist button:hover{
+  background:linear-gradient(135deg,#7B68B8,#9B80D0);
+  transform:translateY(-2px);
+  box-shadow:0 8px 35px rgba(107,88,168,0.5),0 4px 12px rgba(107,88,168,0.3);
+}
+.waitlist .note{text-align:center;font-size:0.75rem;color:var(--hint);margin-top:0.75rem}
+.waitlist .success-msg{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.15rem;
+  color:var(--accent-text);
+  padding:1rem 0;
+  line-height:1.6;
+}
+.waitlist .counter{
+  text-align:center;
+  font-size:0.8rem;
+  color:var(--muted);
+  margin-bottom:0.75rem;
+}
+.waitlist .counter span{
+  color:var(--accent-text);
+  font-weight:500;
+}
+
+/* ── BENEFITS ── */
+.benefits{
+  padding:2rem 1.5rem 4rem;
+  max-width:1100px;
+  margin:0 auto;
+}
+.benefits-header{text-align:center;margin-bottom:4rem}
+.benefits-header h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,4vw,2.6rem);
+  font-weight:300;
+  line-height:1.3;
+  margin-bottom:0.75rem;
+}
+.benefits-header h2 span.hl{color:var(--accent-text)}
+.benefits-header p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto}
+
+.benefit-row{
+  display:flex;
+  align-items:center;
+  gap:4rem;
+  margin-bottom:6rem;
+  opacity:0;
+  transform:translateY(30px);
+  animation:fadeUp 0.8s ease forwards;
+}
+.benefit-row:nth-child(2){animation-delay:0.1s}
+.benefit-row:nth-child(3){animation-delay:0.2s}
+.benefit-row:nth-child(even){flex-direction:row-reverse}
+
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+.benefit-text{flex:1}
+.benefit-text .tag{
+  display:inline-block;
+  font-size:0.78rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:0.45rem 1.1rem;
+  border-radius:20px;
+  margin-bottom:1rem;
+  backdrop-filter:blur(10px);
+  font-weight:400;
+}
+.benefit-text .tag--sage{
+  color:#3D8B7A;
+  background:rgba(90,175,160,0.15);
+  border:1px solid rgba(90,175,160,0.25);
+}
+.benefit-text .tag--warm{
+  color:#C08030;
+  background:rgba(232,184,96,0.15);
+  border:1px solid rgba(232,184,96,0.25);
+}
+.benefit-text .tag--lavender{
+  color:var(--accent-text);
+  background:rgba(184,165,212,0.15);
+  border:1px solid rgba(184,165,212,0.25);
+}
+.benefit-text h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,1.8rem);
+  font-weight:400;
+  margin-bottom:0.6rem;
+  line-height:1.3;
+}
+.benefit-text p{color:var(--muted);font-size:0.95rem;line-height:1.8}
+.benefit-text p .accent{color:var(--accent-text);font-weight:400}
+
+.benefit-phone{
+  flex:0 0 420px;
+  position:relative;
+}
+.benefit-phone img{
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 15px 30px rgba(0,0,0,0.06));
+  -webkit-mask-image:radial-gradient(ellipse 85% 70% at 50% 40%, black 50%, transparent 100%);
+  mask-image:radial-gradient(ellipse 85% 70% at 50% 40%, black 50%, transparent 100%);
+}
+
+/* ── FOUNDER STORY ── */
+.founder{
+  padding:4rem 1.5rem 5rem;
+  max-width:720px;
+  margin:0 auto;
+}
+.founder-inner{
+  display:flex;
+  gap:2.5rem;
+  align-items:flex-start;
+}
+.founder-photo{
+  flex:0 0 130px;
+  position:relative;
+}
+.founder-photo img{
+  width:130px;
+  height:130px;
+  border-radius:50%;
+  object-fit:cover;
+  box-shadow:0 8px 30px rgba(107,88,168,0.18), 0 2px 10px rgba(0,0,0,0.06);
+}
+.founder-photo .founder-tag{
+  display:block;
+  text-align:center;
+  font-size:0.65rem;
+  color:var(--muted);
+  margin-top:0.75rem;
+  line-height:1.4;
+  font-style:italic;
+}
+.founder-text{flex:1}
+.founder-text .founder-label{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:var(--accent-text);
+  margin-bottom:1rem;
+  letter-spacing:0.05em;
+}
+.founder-text blockquote{
+  font-size:0.92rem;
+  color:var(--text);
+  line-height:1.9;
+  font-style:italic;
+}
+.founder-text blockquote p{margin-bottom:1rem}
+.founder-text blockquote p:last-child{margin-bottom:0}
+
+/* ── BODY MAP CTA ── */
+.bodymap-cta{
+  padding:4rem 1.5rem;
+}
+.bodymap-cta-inner{
+  max-width:900px;
+  margin:0 auto;
+  background:var(--glass-strong);
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  padding:3rem 2.5rem;
+  box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
+  display:flex;
+  align-items:center;
+  gap:3rem;
+}
+.bodymap-cta-text{
+  flex:1;
+  text-align:left;
+}
+.bodymap-cta-inner h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,3vw,1.7rem);
+  font-weight:400;
+  color:var(--text);
+  margin-bottom:0.75rem;
+  line-height:1.4;
+}
+.bodymap-cta-inner p{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-bottom:1.5rem;
+  line-height:1.7;
+}
+.bodymap-form{
+  display:flex;gap:0.5rem;max-width:380px;margin:0 auto;
+}
+.bodymap-form input{
+  flex:1;padding:0.7rem 1rem;border:1px solid var(--glass-border);border-radius:10px;
+  background:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  font-weight:300;color:var(--text);outline:none;
+}
+.bodymap-form input:focus{border-color:var(--sage)}
+.bodymap-cta-inner .btn-bodymap{
+  display:inline-block;
+  padding:0.85rem 2rem;
+  border:none;
+  border-radius:12px;
+  background:linear-gradient(135deg,var(--sage),var(--sage-dark));
+  color:white;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.95rem;
+  font-weight:400;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.3s;
+  box-shadow:0 4px 18px rgba(90,175,160,0.35);
+}
+.bodymap-cta-inner .btn-bodymap:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 30px rgba(90,175,160,0.5);
+}
+.bodymap-phone{
+  flex:0 0 360px;
+}
+.bodymap-phone img{
+  width:100%;
+  height:auto;
+  filter:drop-shadow(0 18px 40px rgba(0,0,0,0.12));
+  -webkit-mask-image:linear-gradient(to bottom, black 92%, transparent 100%);
+  mask-image:linear-gradient(to bottom, black 92%, transparent 100%);
+}
+
+/* ── HOW IT WORKS ── */
+.how{
+  padding:5rem 1.5rem;
+  position:relative;
+}
+.how-inner{max-width:800px;margin:0 auto;text-align:center;position:relative}
+.how-inner h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.8rem,4vw,2.4rem);
+  font-weight:300;
+  margin-bottom:1rem;
+}
+.how-inner .how-sub{color:var(--muted);font-size:0.95rem;margin-bottom:3rem}
+.how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;text-align:center}
+.how-step{
+  background:var(--glass-strong);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:16px;
+  padding:2rem 1.5rem;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow:6px 6px 16px var(--neu-dark),-6px -6px 16px var(--neu-light);
+}
+.how-step:hover{
+  transform:translateY(-6px) scale(1.02);
+  box-shadow:10px 10px 30px var(--neu-dark),-10px -10px 30px var(--neu-light);
+}
+.how-step .num{
+  width:48px;height:48px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));
+  color:white;
+  display:inline-flex;
+  align-items:center;justify-content:center;
+  font-weight:500;
+  font-size:0.95rem;
+  margin-bottom:1rem;
+  animation:numGlow 3s ease-in-out infinite;
+}
+.how-step:nth-child(1) .num{
+  background:linear-gradient(135deg,var(--sage-light),var(--sage));
+  animation:numGlow1 3s ease-in-out infinite;
+}
+.how-step:nth-child(2) .num{
+  background:linear-gradient(135deg,var(--accent),var(--accent-deep));
+}
+.how-step:nth-child(3) .num{
+  background:linear-gradient(135deg,var(--gold-light),var(--warm));
+  animation:numGlow3 3s ease-in-out infinite;
+}
+@keyframes numGlow1{
+  0%,100%{box-shadow:0 4px 15px rgba(90,175,160,0.4)}
+  50%{box-shadow:0 6px 25px rgba(90,175,160,0.7)}
+}
+@keyframes numGlow3{
+  0%,100%{box-shadow:0 4px 15px rgba(232,184,96,0.4)}
+  50%{box-shadow:0 6px 25px rgba(232,184,96,0.7)}
+}
+.how-step h4{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:400;margin-bottom:0.5rem}
+.how-step p{font-size:0.85rem;color:var(--muted);line-height:1.6}
+
+/* ── SCIENCE / TRUST ── */
+.science{
+  padding:4rem 1.5rem 5rem;
+  text-align:center;
+  max-width:700px;
+  margin:0 auto;
+}
+.science h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,3vw,1.5rem);
+  font-weight:400;
+  color:var(--muted);
+  margin-bottom:0.5rem;
+  letter-spacing:0.1em;
+  text-transform:uppercase;
+  font-size:0.7rem;
+}
+.science .wave-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3.5vw,2rem);
+  font-weight:300;
+  color:var(--text);
+  margin-bottom:0.5rem;
+  line-height:1.3;
+}
+.science .wave-sub{
+  font-size:0.9rem;
+  color:var(--muted);
+  margin-bottom:2.5rem;
+}
+/* Neurochemical wave bars */
+.wave-chart{
+  display:flex;
+  align-items:flex-end;
+  gap:3px;
+  height:160px;
+  margin:0 auto 0.5rem;
+  max-width:500px;
+  position:relative;
+}
+.wave-bar{
+  flex:1;
+  border-radius:4px 4px 0 0;
+  transition:height 1s ease;
+  min-width:8px;
+}
+.wave-annotation{
+  position:absolute;
+  font-size:0.65rem;
+  color:var(--coral);
+  top:-2.2rem;
+  left:50%;
+  transform:translateX(-50%);
+  white-space:nowrap;
+  line-height:1.3;
+}
+.wave-annotation .arrow{display:block;font-size:0.8rem}
+.wave-labels{
+  display:flex;
+  max-width:500px;
+  margin:0.75rem auto 0;
+  border-top:2px solid;
+  padding-top:0.5rem;
+}
+.wave-label{
+  flex:1;
+  text-align:left;
+  font-size:0.7rem;
+  line-height:1.4;
+  padding-right:0.5rem;
+}
+.wave-label strong{display:block;font-weight:600}
+.wave-label:nth-child(1){color:var(--coral);border-top-color:var(--coral)}
+.wave-label:nth-child(2){color:#C09840;border-top-color:#C09840}
+.wave-label:nth-child(3){color:var(--sage);border-top-color:var(--sage)}
+.wave-labels{border-image:linear-gradient(to right,var(--coral) 33%,#E8B878 33%,#E8B878 66%,var(--sage) 66%) 1}
+@media(max-width:768px){
+  .wave-chart{height:120px;max-width:90%}
+  .wave-labels{max-width:90%}
+}
+
+/* ── SECTION VIDEO BG ── */
+.section-video{
+  position:relative;
+  overflow:hidden;
+}
+.section-video .vid-bg{
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.section-video .vid-bg video{
+  width:100%;height:100%;
+  object-fit:cover;
+  opacity:0.45;
+  transform:scale(1.05);
+}
+.section-video .vid-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to bottom,var(--bg) 0%,transparent 12%,transparent 88%,var(--bg) 100%),
+    linear-gradient(to right,var(--bg) 0%,transparent 8%,transparent 92%,var(--bg) 100%);
+}
+.section-video > *:not(.vid-bg):not(.vid-overlay){
+  position:relative;
+  z-index:2;
+}
+
+/* ── QUOTE ── */
+.quote-section{
+  padding:8rem 1.5rem;
+  text-align:center;
+  position:relative;
+  width:100%;
+  overflow:hidden;
+}
+.quote-section blockquote,
+.quote-section .attr{
+  max-width:650px;
+  margin-left:auto;
+  margin-right:auto;
+}
+.quote-section::before{
+  content:'\201C';
+  font-family:'Cormorant Garamond',serif;
+  font-size:14rem;
+  background:linear-gradient(135deg,var(--accent),var(--pink),var(--warm));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+  opacity:0.18;
+  position:absolute;
+  top:-1.5rem;
+  left:50%;
+  transform:translateX(-50%);
+  pointer-events:none;
+  line-height:1;
+}
+.quote-section blockquote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.3rem,3.5vw,1.9rem);
+  font-weight:400;
+  font-style:italic;
+  color:var(--text);
+  line-height:1.6;
+  margin-bottom:1.25rem;
+  position:relative;
+  text-shadow:0 1px 20px rgba(237,229,218,0.9), 0 0 40px rgba(237,229,218,0.7);
+}
+.quote-section .attr{
+  font-size:0.85rem;
+  color:var(--muted);
+  letter-spacing:0.05em;
+  text-shadow:0 1px 15px rgba(237,229,218,0.8);
+}
+
+/* ── WHAT PEOPLE FEEL ── */
+.feelings{
+  padding:4rem 1.5rem;
+  max-width:900px;
+  margin:0 auto;
+}
+.feelings h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3.5vw,2.2rem);
+  font-weight:300;
+  text-align:center;
+  margin-bottom:2.5rem;
+}
+.feelings-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1.25rem;
+  max-width:700px;
+  margin:0 auto;
+}
+/* ── Feeling Card Base ── */
+.feeling-card{
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-radius:16px;
+  padding:1.75rem;
+  text-align:center;
+  transition:transform 0.3s ease,box-shadow 0.3s ease;
+  box-shadow:5px 5px 14px var(--neu-dark),-5px -5px 14px var(--neu-light);
+}
+.feeling-card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
+}
+.feeling-card .card-icon{margin-bottom:0.85rem;display:flex;justify-content:center}
+.feeling-card .card-icon svg{width:36px;height:36px}
+.feeling-card h4{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.05rem;
+  font-weight:400;
+  margin-bottom:0.5rem;
+  color:var(--text);
+}
+.feeling-card p{
+  font-size:0.8rem;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* Card 1: warm orange/amber */
+.feeling-card--warm{
+  background:linear-gradient(145deg,rgba(255,255,255,0.65),rgba(232,184,96,0.12));
+  border:1px solid rgba(232,184,96,0.2);
+}
+.feeling-card--warm h4{color:#8B6020}
+.feeling-card--warm .card-icon svg{filter:drop-shadow(0 2px 8px rgba(240,160,80,0.3))}
+
+/* Card 2: cool sage/blue */
+.feeling-card--sage{
+  background:linear-gradient(145deg,rgba(255,255,255,0.65),rgba(90,175,160,0.12));
+  border:1px solid rgba(90,175,160,0.2);
+}
+.feeling-card--sage h4{color:#2D7A6A}
+.feeling-card--sage .card-icon svg{filter:drop-shadow(0 2px 8px rgba(90,175,160,0.3))}
+
+/* Card 3: lavender/pink */
+.feeling-card--lavender{
+  background:linear-gradient(145deg,rgba(255,255,255,0.65),rgba(232,128,144,0.1));
+  border:1px solid rgba(232,128,144,0.2);
+}
+.feeling-card--lavender h4{color:var(--accent-text)}
+.feeling-card--lavender .card-icon svg{filter:drop-shadow(0 2px 8px rgba(184,165,212,0.4))}
+
+/* ── TRUST SECTION ── */
+.trust-section{
+  padding:4rem 1.5rem;
+  max-width:800px;
+  margin:0 auto;
+  text-align:center;
+}
+.trust-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,3.5vw,2.2rem);
+  font-weight:300;
+  margin-bottom:0.5rem;
+}
+.trust-section .trust-sub{
+  color:var(--muted);
+  font-size:0.9rem;
+  margin-bottom:2rem;
+}
+.method-badges{
+  display:flex;
+  justify-content:center;
+  gap:1rem;
+  flex-wrap:wrap;
+  margin-bottom:2.5rem;
+}
+.method-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:0.6rem;
+  padding:0.7rem 1.5rem;
+  border-radius:24px;
+  font-size:0.95rem;
+  font-weight:400;
+  letter-spacing:0.03em;
+}
+.method-badge svg{width:22px;height:22px;flex-shrink:0}
+.method-badge--polyvagal{
+  color:#2D7A6A;
+  background:rgba(90,175,160,0.12);
+  border:1px solid rgba(90,175,160,0.3);
+}
+.method-badge--somatic{
+  color:#8B6020;
+  background:rgba(232,184,96,0.12);
+  border:1px solid rgba(232,184,96,0.3);
+}
+.method-badge--adhd{
+  color:var(--accent-deep);
+  background:rgba(184,165,212,0.15);
+  border:1px solid rgba(184,165,212,0.35);
+}
+.trust-citations{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1rem;
+  text-align:left;
+}
+.trust-cite{
+  background:var(--glass);
+  backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);
+  border-radius:12px;
+  padding:1.25rem;
+}
+.trust-cite .cite-source{
+  font-size:0.75rem;
+  letter-spacing:0.08em;
+  text-transform:uppercase;
+  color:var(--hint);
+  margin-bottom:0.5rem;
+}
+.trust-cite p{font-size:0.92rem;color:var(--muted);line-height:1.7}
+.trust-cite strong{color:var(--text);font-weight:500}
+
+/* ── WHO THIS IS FOR ── */
+.who-section{
+  padding:4rem 1.5rem;
+  max-width:700px;
+  margin:0 auto;
+}
+.who-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.5rem,3.5vw,2rem);
+  font-weight:300;
+  text-align:center;
+  margin-bottom:2rem;
+}
+.who-list{list-style:none;padding:0;margin:0 0 2rem}
+.who-list li{
+  display:flex;
+  align-items:flex-start;
+  gap:0.75rem;
+  padding:0.75rem 0;
+  border-bottom:1px solid rgba(0,0,0,0.04);
+  font-size:0.92rem;
+  color:var(--muted);
+  line-height:1.6;
+}
+.who-list li .who-check{
+  color:var(--sage);
+  font-size:1.1rem;
+  flex-shrink:0;
+  margin-top:0.1rem;
+}
+.who-not{
+  text-align:center;
+  font-size:0.82rem;
+  color:var(--hint);
+  line-height:1.7;
+  padding:1.25rem;
+  background:rgba(232,128,144,0.06);
+  border:1px solid rgba(232,128,144,0.12);
+  border-radius:12px;
+}
+
+/* ── SECTION CTA (non-intrusive) ── */
+.section-cta{
+  text-align:center;
+  margin-top:2.5rem;
+  padding-top:1.5rem;
+}
+.section-cta a{
+  display:inline-block;
+  font-size:0.82rem;
+  color:var(--accent-text);
+  text-decoration:none;
+  padding:0.5rem 1.5rem;
+  border:1px solid rgba(184,165,212,0.3);
+  border-radius:20px;
+  transition:all 0.3s;
+  cursor:pointer;
+  background:transparent;
+  font-family:'DM Sans',sans-serif;
+}
+.section-cta a:hover{
+  background:rgba(184,165,212,0.1);
+  border-color:rgba(184,165,212,0.5);
+}
+
+/* ── CRISIS FOOTER ── */
+.crisis-line{
+  font-size:0.72rem;
+  color:var(--hint);
+  margin-top:0.5rem;
+}
+.crisis-line a{color:var(--muted);text-decoration:underline}
+
+/* ── BOTTOM CTA ── */
+.bottom-cta{
+  padding:8rem 1.5rem;
+  text-align:center;
+  min-height:60vh;
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
+.bottom-cta h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.6rem,4vw,2.4rem);
+  font-weight:300;
+  margin-bottom:0.5rem;
+  position:relative;
+}
+.bottom-cta h2 em{font-style:italic;color:var(--accent-text)}
+.bottom-cta p{color:var(--muted);margin-bottom:2rem;font-size:0.95rem;position:relative}
+.bottom-cta .waitlist{max-width:380px;position:relative}
+
+/* ── STICKY MOBILE CTA ── */
+.sticky-cta{
+  display:none;
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  z-index:100;
+  background:rgba(237,229,218,0.95);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border-top:1px solid var(--glass-border);
+  padding:0.75rem 1rem;
+  box-shadow:0 -4px 20px rgba(0,0,0,0.08);
+}
+.sticky-cta form{display:flex;gap:0.5rem}
+.sticky-cta input{
+  flex:1;
+  padding:0.65rem 0.85rem;
+  border:1px solid var(--glass-border);
+  border-radius:10px;
+  background:rgba(255,255,255,0.8);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.85rem;
+  font-weight:300;
+  color:var(--text);
+  outline:none;
+}
+.sticky-cta input:focus{border-color:var(--accent)}
+.sticky-cta input::placeholder{color:var(--hint)}
+.sticky-cta button{
+  padding:0.65rem 1.2rem;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-deep),#8B6EC0);
+  color:white;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.85rem;
+  font-weight:400;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.sticky-cta .success-msg{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1rem;
+  color:var(--accent-text);
+  padding:0.25rem 0;
+}
+
+/* ── FOOTER ── */
+footer{
+  padding:2.5rem 1.5rem;
+  text-align:center;
+  font-size:0.75rem;
+  color:var(--hint);
+}
+footer a{color:var(--accent-text);text-decoration:none}
+footer .footer-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:0.85rem;
+  letter-spacing:0.2em;
+  color:var(--accent-text);
+  text-shadow:0 0 20px rgba(107,88,168,0.15);
+  margin-bottom:0.5rem;
+}
+
+/* ── HOOK LINE ── */
+.hero-hook{
+  font-size:0.75rem;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--accent-text);
+  margin-bottom:1rem;
+  opacity:0.7;
+}
+
+/* ── ADHD BADGE ── */
+.adhd-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:0.5rem;
+  font-size:0.9rem;
+  font-weight:400;
+  letter-spacing:0.04em;
+  color:var(--accent-deep);
+  background:rgba(184,165,212,0.2);
+  border:1px solid rgba(184,165,212,0.4);
+  border-radius:24px;
+  padding:0.6rem 1.3rem;
+  margin-top:0.75rem;
+}
+.adhd-badge .badge-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--accent-deep);
+}
+
+/* ── TIME BADGE ── */
+.time-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:0.45rem;
+  font-size:0.9rem;
+  font-weight:400;
+  letter-spacing:0.04em;
+  color:#3D8B7A;
+  background:rgba(90,175,160,0.18);
+  border:1px solid rgba(90,175,160,0.35);
+  border-radius:24px;
+  padding:0.6rem 1.3rem;
+  margin-left:0.5rem;
+}
+
+/* ── SCROLL BREADCRUMBS ── */
+.scroll-dots{
+  position:fixed;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  z-index:50;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  opacity:0;
+  transition:opacity 0.4s ease;
+}
+.scroll-dots.visible{opacity:1}
+.scroll-dot{
+  width:8px;height:8px;
+  border-radius:50%;
+  background:rgba(26,21,16,0.15);
+  cursor:pointer;
+  transition:all 0.3s ease;
+  position:relative;
+}
+.scroll-dot.active{
+  background:var(--accent-deep);
+  box-shadow:0 0 8px rgba(107,88,168,0.4);
+  transform:scale(1.3);
+}
+.scroll-dot:hover{
+  background:var(--accent);
+  transform:scale(1.2);
+}
+.scroll-dot .dot-label{
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%);
+  font-size:0.65rem;
+  color:var(--muted);
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 0.2s;
+}
+.scroll-dot:hover .dot-label{opacity:1}
+
+/* ── SCROLL ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity 0.6s ease,transform 0.6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* Phone reveal — scale up + fade */
+.phone-reveal{
+  opacity:0;
+  transform:translateY(30px) scale(0.92);
+  transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.phone-reveal.visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+
+/* Analytics phone reveal — slide in from sides */
+.phone-wrap{
+  opacity:0;
+  transform:translateY(40px);
+  transition:opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1);
+}
+.phone-wrap.visible{
+  opacity:1;
+  transform:translateY(0);
+}
+.phone-wrap:nth-child(2){transition-delay:0.15s}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .benefit-row,.benefit-row:nth-child(even){flex-direction:column;text-align:center;gap:2rem}
+  .benefit-phone{flex:0 0 auto;max-width:300px;width:100%}
+  .how-steps{grid-template-columns:1fr;gap:1rem}
+  .feelings-grid{grid-template-columns:1fr;gap:0.75rem}
+  .waitlist{padding:1.5rem;margin:0 0.5rem}
+  .ambient .b{opacity:0.25}
+  .benefit-phone img{animation-duration:9s}
+  .sticky-cta{display:block}
+  .founder-inner{flex-direction:column;align-items:center;text-align:center}
+  .founder-photo{flex:0 0 auto}
+  body{padding-bottom:70px}
+  .hero-content{padding:2rem 1.25rem}
+  .hero-content h1{font-size:clamp(1.8rem,7vw,2.6rem)}
+  .hero-content .sub{font-size:0.85rem;padding:0 0.25rem}
+  .trust-citations{grid-template-columns:1fr;gap:0.75rem}
+  .method-badges{gap:0.6rem}
+  .method-badge{font-size:0.82rem;padding:0.55rem 1rem}
+  .bodymap-cta-inner{flex-direction:column;text-align:center}
+  .bodymap-cta-text{text-align:center}
+  .bodymap-phone{flex:0 0 auto;max-width:300px}
+  .bodymap-form{flex-direction:column;max-width:300px;margin:0 auto}
+  .scroll-dots{right:8px;gap:8px}
+  .scroll-dot{width:6px;height:6px}
+  .scroll-dot .dot-label{display:none}
+  .adhd-badge,.time-badge{font-size:0.65rem}
+}
+
+/* ── WAITLIST MODAL ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(58,53,48,0.35);
+  backdrop-filter: blur(6px);
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.modal {
+  background: var(--bg);
+  border-radius: 28px;
+  padding: 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 12px 12px 30px var(--neu-dark), -12px -12px 30px var(--neu-light);
+  transform: translateY(16px);
+  transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+.modal-overlay.open .modal {
+  transform: translateY(0);
+}
+.modal-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: var(--accent-text);
+  margin-bottom: 6px;
+}
+.modal-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.modal-title em { font-style: italic; color: var(--accent-deep); }
+.modal-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+.modal-divider {
+  height: 0.5px;
+  background: rgba(0,0,0,0.07);
+  margin: 0 -40px 24px;
+}
+.field-group {
+  margin-bottom: 16px;
+}
+.field-label {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 7px;
+  display: block;
+}
+.field-input {
+  width: 100%;
+  background: rgba(255,255,255,0.6);
+  border: none;
+  border-radius: 14px;
+  padding: 13px 16px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text);
+  box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light);
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+.field-input:focus {
+  box-shadow: inset 2px 2px 5px var(--neu-dark), inset -2px -2px 5px var(--neu-light), 0 0 0 2px rgba(184,165,212,0.25);
+}
+.field-input::placeholder { color: var(--hint); }
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.pill-opt {
+  background: rgba(255,255,255,0.6);
+  border: none;
+  border-radius: 100px;
+  padding: 9px 18px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  cursor: pointer;
+  box-shadow: 3px 3px 6px var(--neu-dark), -3px -3px 6px var(--neu-light);
+  transition: all 0.15s;
+}
+.pill-opt:hover { color: var(--text); }
+.pill-opt.selected {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,0.1);
+}
+.alpha-toggle {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--glass);
+  border: 0.5px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: box-shadow 0.2s;
+}
+.alpha-toggle:hover { box-shadow: 3px 3px 8px var(--neu-dark), -3px -3px 8px var(--neu-light); }
+.alpha-toggle-text { flex: 1; }
+.alpha-toggle-title { font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 2px; }
+.alpha-toggle-sub { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.toggle-switch {
+  width: 44px;
+  height: 26px;
+  background: rgba(0,0,0,0.1);
+  border-radius: 13px;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.25s;
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.1);
+}
+.toggle-switch.on { background: var(--accent); }
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+  transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+}
+.toggle-switch.on .toggle-knob { transform: translateX(18px); }
+.modal-submit {
+  width: 100%;
+  background: var(--accent);
+  border: none;
+  border-radius: 14px;
+  padding: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 24px;
+  box-shadow: 0 4px 16px rgba(184,165,212,0.4);
+  transition: opacity 0.2s, transform 0.15s;
+}
+.modal-submit:hover { opacity: 0.88; transform: translateY(-1px); }
+.modal-submit:disabled { opacity: 0.5; cursor: default; transform: none; }
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  width: 32px;
+  height: 32px;
+  background: rgba(255,255,255,0.6);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px var(--neu-dark), -2px -2px 5px var(--neu-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.modal-close:hover { color: var(--text); }
+.modal-success {
+  text-align: center;
+  padding: 20px 0;
+  display: none;
+}
+.modal-success-icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+.modal-success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.modal-success-sub { font-size: 14px; color: var(--muted); line-height: 1.6; }
+.modal-body.hidden { display: none; }
+
+/* Consent checkbox */
+.consent-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.6);
+  box-shadow: inset 1px 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+.consent-check:hover { box-shadow: inset 1px 1px 3px rgba(0,0,0,0.06), 0 0 0 2px rgba(184,165,212,0.12); }
+.consent-check.error { box-shadow: inset 1px 1px 3px rgba(0,0,0,0.04), 0 0 0 2px rgba(232,107,114,0.35); }
+.consent-box {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  background: rgba(255,255,255,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+  transition: all 0.15s;
+}
+.consent-box.checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.consent-text {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+@media (max-width: 480px) {
+  .modal { padding: 28px 24px; border-radius: 24px; }
+  .modal-divider { margin: 0 -24px 20px; }
+}
+
+/* ── ANALYTICS PHONES ── */
+.analytics-section{padding:4rem 1.5rem;max-width:1100px;margin:0 auto}
+.analytics-header{text-align:center;margin-bottom:3rem}
+.analytics-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:300}
+.analytics-header p{color:var(--muted);font-size:0.95rem;max-width:500px;margin:0.5rem auto 0}
+.phone-row{display:flex;gap:2rem;justify-content:center;flex-wrap:wrap}
+.phone-wrap{display:flex;flex-direction:column;align-items:center}
+.an-phone{width:300px;height:650px;border-radius:36px;overflow:hidden;position:relative;box-shadow:0 16px 50px rgba(0,0,0,0.12);background:#FAF6F0;flex-shrink:0;transition:transform 0.3s ease,box-shadow 0.3s ease}
+.an-phone:hover{transform:translateY(-8px) scale(1.03);box-shadow:0 24px 60px rgba(0,0,0,0.18)}
+.an-phone .notch{position:absolute;top:0;left:50%;transform:translateX(-50%);width:90px;height:22px;background:#1a1a1a;border-radius:0 0 14px 14px;z-index:50}
+.an-phone .home-ind{position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:100px;height:4px;background:rgba(0,0,0,0.08);border-radius:2px;z-index:50}
+.an-phone .phone-screen{padding:46px 20px 26px;height:100%;overflow-y:auto;color:#3a3530}
+.an-phone .ph-subtitle{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9a9590;margin-bottom:8px}
+.an-phone .ph-title{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#3a3530;margin-bottom:14px}
+.an-phone .ph-body{font-size:12px;color:#6a6560;line-height:1.5;margin-bottom:12px}
+.an-phone .ph-card{background:#F0ECE7;border-radius:12px;padding:14px;margin-bottom:10px}
+.an-phone .ph-card-title{font-size:12px;font-weight:700;color:#3a3530;margin-bottom:5px}
+.an-phone .ph-card-sub{font-size:10px;color:#9a9590;line-height:1.4}
+.phone-label{font-size:0.65rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:1rem;text-align:center}
+@media(max-width:768px){
+  .an-phone{width:260px;height:560px}
+  .phone-row{gap:1.5rem}
+}
+
+/* ── FAQ ── */
+.faq{padding:4rem 1.5rem;max-width:700px;margin:0 auto}
+.faq h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:300;text-align:center;margin-bottom:2.5rem}
+.faq-item{margin-bottom:0.75rem}
+.faq-q{
+  width:100%;text-align:left;
+  background:var(--glass);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--glass-border);border-radius:12px;
+  padding:1rem 1.25rem;
+  font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:400;
+  color:var(--text);cursor:pointer;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:all 0.2s;
+  box-shadow:4px 4px 12px var(--neu-dark),-4px -4px 12px var(--neu-light);
+}
+.faq-q:hover{box-shadow:6px 6px 16px var(--neu-dark),-6px -6px 16px var(--neu-light)}
+.faq-q .arrow{transition:transform 0.3s;font-size:0.8rem;color:var(--muted)}
+.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s ease,padding 0.3s ease;
+  padding:0 1.25rem;
+  font-size:0.9rem;color:var(--muted);line-height:1.8;
+}
+.faq-a.open{max-height:300px;padding:1rem 1.25rem 1.25rem}
+</style>
+</head>
+<body>
+
+<!-- Ambient floating blobs -->
+<div class="ambient">
+  <div class="b b1"></div>
+  <div class="b b2"></div>
+  <div class="b b3"></div>
+  <div class="b b4"></div>
+  <div class="b b5"></div>
+</div>
+
+<!-- ══════ HERO ══════ -->
+<section class="hero">
+  <div class="hero-video">
+    <video autoplay muted loop playsinline>
+      <source src="assets/breathing-loop.webm" type="video/webm">
+      <source src="assets/breathing-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-content">
+    <div class="logo">mirrah</div>
+    <h1>the app that meets you <em>mid-spiral.</em></h1>
+    <p class="sub">"you can name your attachment style, explain your triggers to your therapist, and still check his Instagram activity four times before lunch."</p>
+
+    <div class="waitlist" id="hero-waitlist">
+      <h3>join the waitlist</h3>
+      <p class="counter"><span id="hero-counter"></span> people already waiting</p>
+      <form id="hero-form" onsubmit="return handleSubmit(event, 'hero-waitlist')">
+        <input type="email" name="email" placeholder="your email" required>
+        <button type="submit">i want early access</button>
+      </form>
+      <p class="note">no spam. just a quiet heads-up when we're ready.</p>
+    </div>
+    <div style="margin-top:1.25rem;text-align:center">
+      <span class="adhd-badge"><span class="badge-dot"></span> designed for ADHD first</span>
+      <span class="time-badge">&#9201; under 2 minutes</span>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ WHAT PEOPLE FEEL ══════ -->
+<section class="feelings reveal">
+  <h2>mirrah is for moments like these</h2>
+  <div class="feelings-grid">
+    <div class="feeling-card feeling-card--warm">
+      <div class="card-icon"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="8" width="20" height="16" rx="8" stroke="#C08030" stroke-width="1.5" fill="rgba(232,184,96,0.15)"/><circle cx="11" cy="16" r="1" fill="#C08030"/><circle cx="15" cy="16" r="1" fill="#C08030"/><circle cx="19" cy="16" r="1" fill="#C08030"/><rect x="18" y="14" width="14" height="10" rx="5" stroke="#C08030" stroke-width="1.5" fill="rgba(232,184,96,0.08)" stroke-dasharray="2 2"/></svg></div>
+      <h4>they haven't texted back</h4>
+      <p>your chest is tight and your thumb is hovering over send. come here first.</p>
+    </div>
+    <div class="feeling-card feeling-card--sage">
+      <div class="card-icon"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 28C8 28 10 18 18 18C26 18 28 28 28 28" stroke="#5AAFA0" stroke-width="1.5" stroke-linecap="round" opacity="0.3"/><path d="M6 26C6 26 9 14 18 14C27 14 30 26 30 26" stroke="#5AAFA0" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/><path d="M4 24C4 24 8 10 18 10C28 10 32 24 32 24" stroke="#5AAFA0" stroke-width="1.5" stroke-linecap="round" opacity="0.2"/><line x1="18" y1="8" x2="18" y2="30" stroke="#5AAFA0" stroke-width="1" opacity="0.15"/></svg></div>
+      <h4>you feel nothing at all</h4>
+      <p>numb, foggy, can't move. mirrah starts where you are — even if that's shutdown.</p>
+    </div>
+    <div class="feeling-card feeling-card--lavender">
+      <div class="card-icon"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 6C18 6 26 10 26 18C26 22 24 26 18 30" stroke="#9B7ED8" stroke-width="1.5" fill="none" stroke-linecap="round"/><path d="M18 10C18 10 23 13 23 18C23 21 21 24 18 26" stroke="#9B7ED8" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.6"/><path d="M18 14C18 14 20 16 20 18C20 20 19 21 18 22" stroke="#9B7ED8" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.3"/><circle cx="18" cy="18" r="1.5" fill="#9B7ED8" opacity="0.8"/></svg></div>
+      <h4>the spiral won't stop</h4>
+      <p>you know it's irrational. you still can't stop. mirrah doesn't explain — it interrupts.</p>
+    </div>
+    <div class="feeling-card feeling-card--warm">
+      <div class="card-icon"><svg viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18 28L8 18C6 16 5 13 7 10C9 7 13 7 15 9L18 12L21 9C23 7 27 7 29 10C31 13 30 16 28 18L18 28Z" stroke="#C08030" stroke-width="1.5" fill="rgba(232,184,96,0.1)"/><line x1="14" y1="14" x2="22" y2="22" stroke="#C08030" stroke-width="1" opacity="0.5"/><line x1="16" y1="22" x2="22" y2="16" stroke="#C08030" stroke-width="1" opacity="0.3"/></svg></div>
+      <h4>rejection sensitivity just hit</h4>
+      <p>one look, one tone, one unanswered message — and your whole body is on fire. mirrah catches you before the story writes itself.</p>
+    </div>
+  </div>
+  <div class="section-cta"><a onclick="openWaitlist()">recognize yourself? join the waitlist</a></div>
+</section>
+
+<!-- ══════ SCIENCE / TRUST ══════ -->
+<section class="science reveal">
+  <div style="background:var(--glass-strong);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:20px;padding:2.5rem 2rem 2rem;box-shadow:6px 6px 16px var(--neu-dark),-6px -6px 16px var(--neu-light)">
+  <h3>the neurochemical wave</h3>
+  <div class="wave-title">your amygdala fires in 12ms.<br>your rational brain needs 20 minutes to come back.</div>
+  <div class="wave-sub">mirrah lives in that gap.</div>
+
+  <div class="wave-chart">
+    <!-- Build up -->
+    <div class="wave-bar" style="height:45%;background:var(--coral);opacity:0.4"></div>
+    <div class="wave-bar" style="height:75%;background:var(--coral);opacity:0.6"></div>
+    <!-- Peak -->
+    <div class="wave-bar" style="height:100%;background:var(--coral);opacity:0.9;position:relative"><div class="wave-annotation">most people react here<span class="arrow">↓</span></div></div>
+    <!-- Coming down -->
+    <div class="wave-bar" style="height:92%;background:var(--coral);opacity:0.78"></div>
+    <div class="wave-bar" style="height:82%;background:var(--coral);opacity:0.68"></div>
+    <div class="wave-bar" style="height:72%;background:var(--coral);opacity:0.58"></div>
+    <div class="wave-bar" style="height:62%;background:#D4946A;opacity:0.55"></div>
+    <div class="wave-bar" style="height:53%;background:#E8B878;opacity:0.55"></div>
+    <div class="wave-bar" style="height:45%;background:#E8B878;opacity:0.5"></div>
+    <div class="wave-bar" style="height:38%;background:#D4B88C;opacity:0.45"></div>
+    <div class="wave-bar" style="height:32%;background:#B8A5D4;opacity:0.45"></div>
+    <div class="wave-bar" style="height:27%;background:#B8A5D4;opacity:0.4"></div>
+    <div class="wave-bar" style="height:23%;background:#A0C4B4;opacity:0.38"></div>
+    <div class="wave-bar" style="height:19%;background:var(--sage);opacity:0.35"></div>
+    <div class="wave-bar" style="height:16%;background:var(--sage);opacity:0.3"></div>
+    <div class="wave-bar" style="height:13%;background:var(--sage);opacity:0.25"></div>
+    <div class="wave-bar" style="height:11%;background:var(--sage);opacity:0.22"></div>
+    <div class="wave-bar" style="height:9%;background:var(--sage);opacity:0.2"></div>
+    <div class="wave-bar" style="height:7%;background:var(--sage);opacity:0.18"></div>
+  </div>
+  <div class="wave-labels">
+    <div class="wave-label"><strong>0–90 sec</strong>trigger in control</div>
+    <div class="wave-label"><strong>90s–5 min</strong>brain coming back</div>
+    <div class="wave-label"><strong>5–20 min</strong>you can choose</div>
+  </div>
+  </div>
+</section>
+
+<!-- ══════ HOW IT WORKS ══════ -->
+<section class="how">
+  <div class="how-inner">
+    <h2 class="reveal">how mirrah works</h2>
+    <p class="how-sub reveal">three steps. under two minutes. your nervous system does the rest.</p>
+    <div class="how-steps">
+      <div class="how-step reveal">
+        <div class="num">1</div>
+        <h4>check in with your body</h4>
+        <p>tap where you feel activation. your body map tells mirrah what your nervous system is doing right now.</p>
+      </div>
+      <div class="how-step reveal">
+        <div class="num">2</div>
+        <h4>get matched to an exercise</h4>
+        <p>based on your state — not a guess. racing heart gets different support than shutdown numbness.</p>
+      </div>
+      <div class="how-step reveal">
+        <div class="num">3</div>
+        <h4>feel the shift</h4>
+        <p>do one more, or you're done. mirrah suggests what comes next — or just sit with it. every second counts.</p>
+      </div>
+    </div>
+    <div class="section-cta reveal"><a onclick="openWaitlist()">that's it. save your spot</a></div>
+  </div>
+</section>
+
+<!-- ══════ BENEFITS ══════ -->
+<section class="benefits">
+
+  <div class="benefit-row reveal">
+    <div class="benefit-text">
+      <span class="tag tag--sage">body first</span>
+      <h3>your nervous system picks the exercise</h3>
+      <p>tap where you feel it in your body. mirrah reads your <span class="accent">activation level</span> and recommends what your nervous system actually needs — not a generic breathing exercise.</p>
+    </div>
+    <div class="benefit-phone">
+      <img src="assets/app-screen-1.png" alt="mirrah self-hug exercise with timer showing 15 of 30 seconds">
+    </div>
+  </div>
+
+  <div class="benefit-row reveal">
+    <div class="benefit-text">
+      <span class="tag tag--warm">90-second window</span>
+      <h3>designed for the moment you need it</h3>
+      <p>most tools teach you about your patterns after the fact. mirrah gives you something to do in the <span class="accent">90 seconds</span> between the trigger and the text you'll regret.</p>
+    </div>
+    <div class="benefit-phone">
+      <img src="assets/app-screen-2.png" alt="mirrah exercise selection screen showing personalized recommendations">
+    </div>
+  </div>
+</section>
+
+<!-- ══════ TRUST & SCIENCE ══════ -->
+<section class="trust-section reveal">
+  <h2>built on science, not trends</h2>
+  <p class="trust-sub">mirrah's approach is grounded in three research-backed frameworks.</p>
+
+  <div class="method-badges">
+    <div class="method-badge method-badge--polyvagal">
+      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 4 6 4 10C4 14 9 16 9 16C9 16 14 14 14 10C14 6 9 2 9 2Z" stroke="#2D7A6A" stroke-width="1.2" fill="rgba(90,175,160,0.15)"/><path d="M9 6V12" stroke="#2D7A6A" stroke-width="1"/><path d="M7 8L9 6L11 8" stroke="#2D7A6A" stroke-width="1"/></svg>
+      polyvagal-informed
+    </div>
+    <div class="method-badge method-badge--somatic">
+      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="#8B6020" stroke-width="1.2" fill="rgba(232,184,96,0.15)"/><path d="M9 10V14" stroke="#8B6020" stroke-width="1.2"/><path d="M6 12H12" stroke="#8B6020" stroke-width="1.2"/><path d="M7 16H11" stroke="#8B6020" stroke-width="1"/></svg>
+      somatic experiencing
+    </div>
+    <div class="method-badge method-badge--adhd">
+      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#6B58A8" stroke-width="1.2" fill="rgba(184,165,212,0.1)"/><path d="M9 5V9L12 11" stroke="#6B58A8" stroke-width="1.2" stroke-linecap="round"/></svg>
+      ADHD-primary design
+    </div>
+  </div>
+
+  <div class="trust-citations">
+    <div class="trust-cite">
+      <div class="cite-source">polyvagal theory</div>
+      <p><strong>your nervous system has three states</strong> — fight/flight, freeze, and safe. stephen porges' research (1994) showed that the body decides which state you're in before your conscious mind knows. mirrah reads your body state first.</p>
+    </div>
+    <div class="trust-cite">
+      <div class="cite-source">somatic experiencing</div>
+      <p><strong>the body stores what the mind can't process.</strong> peter levine's 40 years of clinical research shows that body-first interventions resolve activation faster than cognitive approaches. mirrah's exercises are built on this.</p>
+    </div>
+    <div class="trust-cite">
+      <div class="cite-source">the 90-second rule</div>
+      <p><strong>neurochemicals flush in 90 seconds.</strong> jill bolte taylor's research at harvard showed that the chemical lifespan of an emotion is 90 seconds. everything after that is a story. mirrah lives in that window.</p>
+    </div>
+  </div>
+  <div class="section-cta"><a onclick="openWaitlist()">science-backed. join the waitlist</a></div>
+</section>
+
+<!-- ══════ ANALYTICS PHONES ══════ -->
+<section class="analytics-section reveal">
+  <div class="analytics-header">
+    <h2>mirrah learns you</h2>
+    <p>the more you use it, the more it sees. your patterns. your shifts. your growth.</p>
+  </div>
+  <div class="phone-row">
+    <div class="phone-wrap">
+      <div class="an-phone">
+        <div class="notch"></div>
+        <div class="home-ind"></div>
+        <div class="phone-screen">
+          <div class="ph-subtitle">connections</div>
+          <div class="ph-title">what your body<br>is telling you</div>
+          <div class="ph-card" style="background:rgba(232,184,120,0.08);box-shadow:none;border:1px solid rgba(232,184,120,0.15)">
+            <div class="ph-card-title" style="color:#E8B878">chest tightness → anger</div>
+            <div class="ph-card-sub">In 14 of 18 sessions where you felt chest tightness, you named anger within 30 seconds. Your chest knows before your mind does.</div>
+          </div>
+          <div class="ph-card" style="background:rgba(184,165,212,0.08);box-shadow:none;border:1px solid rgba(184,165,212,0.15)">
+            <div class="ph-card-title" style="color:#9A86C0">stomach + jaw = shame</div>
+            <div class="ph-card-sub">When stomach tension and jaw clenching appear together, shame follows 80% of the time. This combination is specific to you.</div>
+          </div>
+          <div class="ph-card">
+            <div class="ph-card-title">your regulation style is shifting</div>
+            <div class="ph-card-sub">Early sessions: breath-dominant (70%). Now: more balanced — breath 45%, movement 30%, grounding 25%. You're building a wider toolkit.</div>
+          </div>
+          <div class="ph-card">
+            <div class="ph-card-title">personalized sequencing</div>
+            <div class="ph-card-sub">Based on your history, when you're in fight/flight with chest activation, mirrah now recommends: <strong>box breathing → body scan → grounding</strong>. This sequence has a 91% shift rate for you.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">ai predictions</div>
+    </div>
+    <div class="phone-wrap">
+      <div class="an-phone">
+        <div class="notch"></div>
+        <div class="home-ind"></div>
+        <div class="phone-screen">
+          <div class="ph-subtitle">your journey</div>
+          <div class="ph-title">how you're changing</div>
+          <div class="ph-body">State distribution across 24 sessions.</div>
+          <div style="margin:14px 0">
+            <div style="display:flex;gap:2px;height:100px;align-items:flex-end">
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:100%"><div style="flex:4;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.7"></div><div style="flex:1;background:#E8B878;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:100%"><div style="flex:4;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.7"></div><div style="flex:1;background:#E8B878;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:95%"><div style="flex:3;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.6"></div><div style="flex:2;background:#E8B878;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:90%"><div style="flex:3;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.5"></div><div style="flex:2;background:#E8B878;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:85%"><div style="flex:2;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.5"></div><div style="flex:2;background:#E8B878;opacity:0.5"></div><div style="flex:1;background:#B8A5D4;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:80%"><div style="flex:2;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.4"></div><div style="flex:2;background:#E8B878;opacity:0.5"></div><div style="flex:1;background:#B8A5D4;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:78%"><div style="flex:1;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.4"></div><div style="flex:3;background:#E8B878;opacity:0.5"></div><div style="flex:1;background:#B8A5D4;opacity:0.5"></div></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:1px;height:72%"><div style="flex:1;background:#C4725A;border-radius:2px 2px 0 0;opacity:0.3"></div><div style="flex:3;background:#E8B878;opacity:0.5"></div><div style="flex:2;background:#B8A5D4;opacity:0.5"></div></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:8px;color:#9a9590;margin-top:5px"><span>week 1</span><span>week 8</span></div>
+          </div>
+          <div style="display:flex;gap:10px;margin-bottom:14px;justify-content:center">
+            <div style="display:flex;align-items:center;gap:3px"><div style="width:8px;height:8px;border-radius:2px;background:#C4725A;opacity:0.6"></div><span style="font-size:8px;color:#9a9590">fight/flight</span></div>
+            <div style="display:flex;align-items:center;gap:3px"><div style="width:8px;height:8px;border-radius:2px;background:#E8B878;opacity:0.5"></div><span style="font-size:8px;color:#9a9590">on edge</span></div>
+            <div style="display:flex;align-items:center;gap:3px"><div style="width:8px;height:8px;border-radius:2px;background:#B8A5D4;opacity:0.5"></div><span style="font-size:8px;color:#9a9590">pulling inward</span></div>
+          </div>
+          <div class="ph-card" style="background:rgba(106,173,160,0.08);box-shadow:none;border:1px solid rgba(106,173,160,0.15)">
+            <div class="ph-card-title" style="color:#6AADA0">you're shifting down</div>
+            <div class="ph-card-sub">Your sessions started mostly in fight/flight. Over 8 weeks, you're arriving more often in "on edge" — still activated, but less flooded. Your window of tolerance is growing.</div>
+          </div>
+          <div class="ph-card">
+            <div class="ph-card-title">regulation time: 8:20 → 4:50</div>
+            <div class="ph-card-sub">You're reaching the regulation window 40% faster than when you started. Your nervous system is learning the path.</div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-label">state trends</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ QUOTE ══════ -->
+<section class="quote-section section-video reveal">
+  <div class="vid-bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/eyes-loop.webm" type="video/webm">
+      <source src="assets/eyes-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="vid-overlay"></div>
+  <blockquote>"your phone is already in your hand. mirrah turns that into a different choice."</blockquote>
+  <p class="attr">— the thing between the trigger and the text</p>
+</section>
+
+<!-- ══════ FOUNDER STORY ══════ -->
+<section class="founder reveal">
+  <div class="founder-inner">
+    <div class="founder-photo">
+      <img src="assets/yaniv.jpg" alt="Yaniv, founder of mirrah">
+      <span class="founder-tag">certified authentic<br>relating facilitator</span>
+    </div>
+    <div class="founder-text">
+      <div class="founder-label">why I built this</div>
+      <blockquote>
+        <p>as someone with ADHD, I spent years in my head — imagining stories, overthinking every text. while dating, triggering conversations would send me reaching for my phone to regulate. but I'd end up writing texts I didn't want to write, doing things I didn't want to do.</p>
+        <p>I learned everything — my attachment style, my patterns, all of it. knowing didn't help me react differently in the moment.</p>
+        <p>then I discovered somatics. learning to listen to my body changed my life. I knew the phone would always be in our hands — so I wanted to inject something good into it. a small choice that creates space for a bigger one.</p>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ WHO THIS IS FOR ══════ -->
+<section class="who-section reveal">
+  <h2>mirrah is for you if...</h2>
+  <ul class="who-list">
+    <li><span class="who-check">&#x2713;</span> you know your triggers but still can't stop the reaction</li>
+    <li><span class="who-check">&#x2713;</span> you've read about attachment styles and it didn't change what you do at 2am</li>
+    <li><span class="who-check">&#x2713;</span> your ADHD makes emotions hit like a truck — fast, loud, all at once</li>
+    <li><span class="who-check">&#x2713;</span> you want something to do in the moment, not another thing to journal about later</li>
+    <li><span class="who-check">&#x2713;</span> you're in therapy but need something for the 167 hours between sessions</li>
+  </ul>
+  <div class="who-not">
+    <strong>important:</strong> mirrah is not a crisis tool. if you're in danger or experiencing a mental health emergency, please reach out to a crisis line near you — <a href="https://findahelpline.com" target="_blank" rel="noopener" style="color:var(--accent-text)">findahelpline.com</a> covers 175+ countries. in the US: <a href="https://988lifeline.org" target="_blank" rel="noopener" style="color:var(--accent-text)">988 Lifeline</a> (call/text 988).
+  </div>
+</section>
+
+<!-- ══════ BODY MAP CTA ══════ -->
+<section class="bodymap-cta reveal">
+  <div class="bodymap-cta-inner">
+    <div class="bodymap-phone">
+      <img src="assets/app-screen-bodymap.png" alt="mirrah body map showing chest and stomach activation with sensation tags">
+    </div>
+    <div class="bodymap-cta-text">
+      <h3>curious what your body is holding right now?</h3>
+      <p>join the waitlist and try mirrah's body map — tap where you feel it.</p>
+      <div class="bodymap-form" id="bodymap-form">
+        <input type="email" id="bodymap-email" placeholder="your email" required>
+        <button type="button" class="btn-bodymap" onclick="submitBodymap()">unlock the body map &rarr;</button>
+      </div>
+      <p class="bodymap-note" id="bodymap-note" style="display:none;font-size:0.8rem;color:var(--sage);margin-top:0.75rem;">you're in! opening the body map...</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ FAQ ══════ -->
+<section class="faq reveal">
+  <h2>questions you might have</h2>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">is this a meditation app? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">no. mirrah doesn't ask you to be calm. it meets you where you are — whether that's racing heart at 2am or total shutdown on the couch. body-first regulation, not relaxation.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">do I need to know my attachment style? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">no. mirrah works from your body, not your labels. you don't need to know polyvagal theory or attachment styles. just tap where you feel it. the app does the rest.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">what if I can't feel my body? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">that's actually common — especially with ADHD or trauma. the body map helps you learn over time. many people start with "I don't know" and that's data too. mirrah doesn't need you to be good at this. it helps you get there.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">is my data private? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">yes. your body map data, triggers, and exercises never leave your device. we don't sell data. ever. your nervous system is yours.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">how is this different from therapy? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">mirrah isn't therapy. it's the 167 hours between sessions. your therapist helps you understand your patterns. mirrah gives you something to do in the moment your therapist can't be there.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">what's the science behind this? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">mirrah is built on three research frameworks. polyvagal theory (stephen porges) explains how your nervous system shifts between states. somatic experiencing (peter levine) shows that body-first interventions resolve activation faster than talking or thinking. and the 90-second rule (jill bolte taylor, harvard) — the chemical lifespan of an emotion is 90 seconds. mirrah works inside that window.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">will this work for ADHD brains? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">it was designed for ADHD first. maximum 3 choices at any time. time is always visible. no streaks that punish you for missing a day. under 90 seconds. curiosity over completion. if it works for the ADHD brain, it works for everyone.</div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">when does it launch? <span class="arrow">&#x25BC;</span></button>
+    <div class="faq-a">soon. join the waitlist and you'll be the first to know. waitlist members get early access before the public launch.</div>
+  </div>
+</section>
+
+<!-- ══════ BOTTOM CTA ══════ -->
+<section class="bottom-cta section-video">
+  <div class="vid-bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/belly-loop.webm" type="video/webm">
+      <source src="assets/belly-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="vid-overlay"></div>
+  <h2 class="reveal">come here instead of <em>the text thread</em></h2>
+  <p class="reveal">join <span id="bottom-counter"></span> people already on the waitlist</p>
+  <div class="waitlist reveal" id="bottom-waitlist">
+    <form id="bottom-form" onsubmit="return handleSubmit(event, 'bottom-waitlist')">
+      <input type="email" name="email" placeholder="your email" required>
+      <button type="submit">join the waitlist</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">mirrah</div>
+  <p>&copy; 2026 — your body already knows</p>
+  <p class="crisis-line">if you're in crisis: <a href="https://findahelpline.com" target="_blank" rel="noopener">find a helpline near you</a> (175+ countries) · US: <a href="https://988lifeline.org" target="_blank" rel="noopener">988 Lifeline</a> (call/text 988)</p>
+</footer>
+
+<!-- ── STICKY MOBILE CTA ── -->
+<div class="sticky-cta" id="sticky-cta">
+  <form id="sticky-form" onsubmit="return handleSubmit(event, 'sticky-cta')">
+    <input type="email" name="email" placeholder="your email" required>
+    <button type="submit">join</button>
+  </form>
+</div>
+
+<!-- ══════ WAITLIST MODAL ══════ -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" style="position:relative">
+    <button class="modal-close" onclick="closeWaitlist()">&#x2715;</button>
+
+    <div class="modal-body" id="modal-body">
+      <div class="modal-logo">mirrah</div>
+      <div class="modal-title">join the<br><em>waitlist.</em></div>
+      <div class="modal-sub">takes 60 seconds. be first to try mirrah.</div>
+      <div class="modal-divider"></div>
+
+      <div class="field-group">
+        <label class="field-label">your name</label>
+        <input class="field-input" id="wl-name" type="text" placeholder="first name is fine">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">email</label>
+        <input class="field-input" id="wl-email" type="email" placeholder="your@email.com">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">phone</label>
+        <div class="pill-group" id="wl-os">
+          <button class="pill-opt" onclick="selectPill('wl-os', this)">iOS</button>
+          <button class="pill-opt" onclick="selectPill('wl-os', this)">Android</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">age</label>
+        <div class="pill-group" id="wl-age">
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">Under 18</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">18–24</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">25–34</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">35–44</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">45–54</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">55–64</button>
+          <button class="pill-opt" onclick="selectPill('wl-age', this)">65+</button>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label class="field-label">gender</label>
+        <div class="pill-group" id="wl-gender">
+          <button class="pill-opt" onclick="selectPill('wl-gender', this)">Male</button>
+          <button class="pill-opt" onclick="selectPill('wl-gender', this)">Female</button>
+          <button class="pill-opt" onclick="selectGenderOther(this)">Other</button>
+          <button class="pill-opt" onclick="selectPill('wl-gender', this)">Prefer not to say</button>
+        </div>
+        <input type="text" id="wl-gender-other" class="field-input" placeholder="How do you identify?" style="display:none;margin-top:8px;">
+      </div>
+
+      <div class="field-group">
+        <label class="field-label" style="margin-bottom:10px">beta testing</label>
+        <div class="alpha-toggle" onclick="toggleAlpha()" id="alpha-toggle">
+          <div class="alpha-toggle-text">
+            <div class="alpha-toggle-title">I want to be a beta tester</div>
+            <div class="alpha-toggle-sub">You'll get early access and help shape the app</div>
+          </div>
+          <div class="toggle-switch" id="alpha-switch">
+            <div class="toggle-knob"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="field-group" style="margin-top:20px">
+        <label class="consent-check" id="consent-label" onclick="toggleConsent()">
+          <div class="consent-box" id="consent-box">
+            <svg class="consent-tick" id="consent-tick" width="12" height="12" viewBox="0 0 12 12" style="display:none"><path d="M2 6 L5 9 L10 3" stroke="white" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <span class="consent-text">I agree to receive email updates about Mirrah (launch news, early access invites). You can unsubscribe at any time.</span>
+        </label>
+      </div>
+
+      <button class="modal-submit" id="modal-submit" onclick="submitWaitlist()">
+        join the waitlist &rarr;
+      </button>
+
+      <p style="font-size:11px;color:var(--hint);text-align:center;margin-top:12px">
+        We respect your privacy. Your data is used only for waitlist communication and will never be shared with third parties.
+      </p>
+    </div>
+
+    <div class="modal-success" id="modal-success">
+      <div class="modal-success-icon"><svg width="40" height="56" viewBox="0 0 24 36"><path d="M0,36 L0,12 Q0,0 10.5,0 L10.5,36 Z" fill="#a99bc4" fill-opacity="0.78"/><path d="M13.5,36 L13.5,0 Q24,0 24,12 L24,36 Z" fill="#c8bdd8" fill-opacity="0.72"/></svg></div>
+      <div class="modal-success-title">you're on the list. 💜</div>
+      <div class="modal-success-sub">we'll be quiet until we're ready.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Waitlist counter (starts at 47, grows slowly) ──
+function getWaitlistCount() {
+  var now = new Date();
+  var start = new Date('2026-03-30');
+  var daysSinceStart = Math.max(0, Math.floor((now - start) / 86400000));
+  var seed = daysSinceStart * 2654435761;
+  seed = ((seed >>> 0) % 10);
+  var base = 47 + Math.floor(daysSinceStart * 1.2);
+  var count = base + seed;
+  return count;
+}
+
+var waitlistCount = getWaitlistCount();
+document.getElementById('hero-counter').textContent = waitlistCount.toLocaleString();
+document.getElementById('bottom-counter').textContent = waitlistCount.toLocaleString();
+
+// ── Google Sheets submission ──
+var SHEET_URL = 'https://script.google.com/macros/s/AKfycbzVAYUTYBjzuu7dZspXFYULFLNK72rAMcd2G_VALUfLrHNZ0INRqaKJkZyDugFsME4_/exec';
+
+// Track which source triggered the modal (for bodymap post-submit flow)
+var modalSource = '';
+var alphaOn = false;
+var consentOn = false;
+
+// ── Form submit handler: capture email, open modal ──
+function handleSubmit(e, containerId) {
+  e.preventDefault();
+  var form = e.target;
+  var email = form.querySelector('input[type="email"]').value;
+  if (!email) return false;
+
+  modalSource = containerId;
+  openWaitlist(email);
+  return false;
+}
+
+// ── Modal functions ──
+function openWaitlist(prefillEmail) {
+  // Reset modal to form state (in case it was previously submitted)
+  document.getElementById('modal-body').classList.remove('hidden');
+  document.getElementById('modal-success').style.display = 'none';
+  var btn = document.getElementById('modal-submit');
+  btn.disabled = false;
+  btn.innerHTML = 'join the waitlist &rarr;';
+
+  // Pre-fill email if provided
+  if (prefillEmail) {
+    document.getElementById('wl-email').value = prefillEmail;
+  }
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeWaitlist() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeWaitlist();
+}
+
+function selectPill(groupId, btn) {
+  document.querySelectorAll('#' + groupId + ' .pill-opt').forEach(function(p) { p.classList.remove('selected'); });
+  btn.classList.add('selected');
+  if (groupId === 'wl-gender') {
+    var otherInput = document.getElementById('wl-gender-other');
+    otherInput.style.display = 'none';
+    otherInput.value = '';
+  }
+}
+
+function selectGenderOther(btn) {
+  document.querySelectorAll('#wl-gender .pill-opt').forEach(function(p) { p.classList.remove('selected'); });
+  btn.classList.add('selected');
+  var otherInput = document.getElementById('wl-gender-other');
+  otherInput.style.display = 'block';
+  otherInput.focus();
+}
+
+function toggleAlpha() {
+  alphaOn = !alphaOn;
+  var sw = document.getElementById('alpha-switch');
+  sw.classList.toggle('on', alphaOn);
+}
+
+function toggleConsent() {
+  consentOn = !consentOn;
+  var box = document.getElementById('consent-box');
+  var tick = document.getElementById('consent-tick');
+  var label = document.getElementById('consent-label');
+  box.classList.toggle('checked', consentOn);
+  tick.style.display = consentOn ? 'block' : 'none';
+  label.classList.remove('error');
+}
+
+function submitWaitlist() {
+  var name   = document.getElementById('wl-name').value.trim();
+  var email  = document.getElementById('wl-email').value.trim();
+  var os     = (document.querySelector('#wl-os .selected') || {}).textContent || '';
+  var age    = (document.querySelector('#wl-age .selected') || {}).textContent || '';
+  var genderBtn = (document.querySelector('#wl-gender .selected') || {}).textContent || '';
+  var gender = genderBtn === 'Other' ? (document.getElementById('wl-gender-other').value.trim() || 'Other') : genderBtn;
+
+  var hasError = false;
+
+  function flashError(el, type) {
+    if (type === 'input') {
+      el.style.boxShadow = 'inset 2px 2px 5px #d8d4cf, inset -2px -2px 5px #fff, 0 0 0 2px rgba(232,107,114,0.35)';
+      setTimeout(function() { el.style.boxShadow = ''; }, 1800);
+    } else {
+      el.style.outline = '2px solid rgba(232,107,114,0.5)';
+      el.style.borderRadius = '12px';
+      setTimeout(function() { el.style.outline = ''; el.style.borderRadius = ''; }, 1800);
+    }
+  }
+
+  if (!name) {
+    flashError(document.getElementById('wl-name'), 'input');
+    hasError = true;
+  }
+
+  if (!email || !email.includes('@')) {
+    flashError(document.getElementById('wl-email'), 'input');
+    hasError = true;
+  }
+
+  if (!os) {
+    flashError(document.getElementById('wl-os'), 'group');
+    hasError = true;
+  }
+
+  if (!age) {
+    flashError(document.getElementById('wl-age'), 'group');
+    hasError = true;
+  }
+
+  if (!genderBtn) {
+    flashError(document.getElementById('wl-gender'), 'group');
+    hasError = true;
+  }
+
+  if (genderBtn === 'Other' && !document.getElementById('wl-gender-other').value.trim()) {
+    flashError(document.getElementById('wl-gender-other'), 'input');
+    hasError = true;
+  }
+
+  if (!consentOn) {
+    var cl = document.getElementById('consent-label');
+    cl.classList.add('error');
+    setTimeout(function() { cl.classList.remove('error'); }, 1800);
+    hasError = true;
+  }
+
+  if (hasError) return;
+
+  var btn = document.getElementById('modal-submit');
+  btn.disabled = true;
+  btn.textContent = 'saving...';
+
+  var payload = {
+    name: name,
+    email: email,
+    os: os,
+    age: age,
+    gender: gender,
+    alpha: alphaOn ? 'yes' : 'no',
+    email_consent: consentOn ? 'yes' : 'no',
+    source: modalSource === 'bodymap' ? 'mirrah-bodymap' : 'mirrah-waitlist',
+    consent_date: (function(){
+      var d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0') + ' ' + String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0') + ':' + String(d.getSeconds()).padStart(2,'0');
+    })()
+  };
+
+  if (SHEET_URL) {
+    fetch(SHEET_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  } else {
+    console.log('Waitlist submission (no sheet connected yet):', payload);
+  }
+
+  // Show success regardless — no-cors means we can't read the response
+  setTimeout(function() {
+    document.getElementById('modal-body').classList.add('hidden');
+    document.getElementById('modal-success').style.display = 'block';
+
+    // If submitted from bodymap, open body map after a brief delay
+    if (modalSource === 'bodymap') {
+      setTimeout(function() {
+        window.open('assets/body-map-v3.html', '_blank');
+      }, 1200);
+    }
+  }, 600);
+}
+
+// ── Scroll reveal animation ──
+var obs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+document.querySelectorAll('.reveal, .phone-reveal, .phone-wrap').forEach(function(el) { obs.observe(el); });
+
+// ── Hide sticky CTA when hero form is visible ──
+if (window.innerWidth <= 768) {
+  var heroWaitlist = document.getElementById('hero-waitlist');
+  var stickyCta = document.getElementById('sticky-cta');
+  var stickyObs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      stickyCta.style.display = e.isIntersecting ? 'none' : 'block';
+    });
+  }, { threshold: 0.1 });
+  stickyObs.observe(heroWaitlist);
+}
+
+function submitBodymap() {
+  var email = document.getElementById('bodymap-email').value.trim();
+  if (!email || !email.includes('@')) {
+    document.getElementById('bodymap-email').style.borderColor = '#E88090';
+    setTimeout(function(){ document.getElementById('bodymap-email').style.borderColor = ''; }, 1500);
+    return;
+  }
+  modalSource = 'bodymap';
+  openWaitlist(email);
+}
+
+function toggleFaq(btn) {
+  var answer = btn.nextElementSibling;
+  var isOpen = btn.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-q').forEach(function(q) { q.classList.remove('open'); });
+  document.querySelectorAll('.faq-a').forEach(function(a) { a.classList.remove('open'); });
+  // Open clicked if it was closed
+  if (!isOpen) {
+    btn.classList.add('open');
+    answer.classList.add('open');
+  }
+}
+
+// ── SCROLL BREADCRUMBS ──
+(function(){
+  var sections = [
+    {sel:'.hero', label:'top'},
+    {sel:'.feelings', label:'moments'},
+    {sel:'.science', label:'science'},
+    {sel:'.how', label:'how'},
+    {sel:'.benefits', label:'features'},
+    {sel:'.analytics-section', label:'insights'},
+    {sel:'.quote-section', label:'quote'},
+    {sel:'.founder', label:'founder'},
+    {sel:'.bodymap-cta', label:'body map'},
+    {sel:'.faq', label:'faq'},
+    {sel:'.bottom-cta', label:'join'}
+  ];
+  var nav = document.createElement('nav');
+  nav.className = 'scroll-dots';
+  sections.forEach(function(s, i){
+    var dot = document.createElement('div');
+    dot.className = 'scroll-dot';
+    dot.setAttribute('data-section', s.sel);
+    var label = document.createElement('span');
+    label.className = 'dot-label';
+    label.textContent = s.label;
+    dot.appendChild(label);
+    dot.addEventListener('click', function(){
+      var el = document.querySelector(s.sel);
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    });
+    nav.appendChild(dot);
+  });
+  document.body.appendChild(nav);
+
+  var dots = nav.querySelectorAll('.scroll-dot');
+  var ticking = false;
+  function updateDots(){
+    var scrollY = window.scrollY;
+    var vh = window.innerHeight;
+    // Show dots after scrolling past hero
+    if (scrollY > vh * 0.5) {
+      nav.classList.add('visible');
+    } else {
+      nav.classList.remove('visible');
+    }
+    var activeIdx = 0;
+    sections.forEach(function(s, i){
+      var el = document.querySelector(s.sel);
+      if (el && el.offsetTop <= scrollY + vh * 0.4) activeIdx = i;
+    });
+    dots.forEach(function(d, i){
+      d.classList.toggle('active', i === activeIdx);
+    });
+    ticking = false;
+  }
+  window.addEventListener('scroll', function(){
+    if (!ticking) { requestAnimationFrame(updateDots); ticking = true; }
+  });
+  updateDots();
+})();
+</script>
+
+</body>
+</html>
