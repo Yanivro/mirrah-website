@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>mirrah — the app that meets you mid-spiral</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23EDE5DA'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='300' font-style='italic' fill='%236B58A8'%3Em%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
@@ -1304,7 +1305,8 @@ footer .footer-logo{
 }
 
 /* ── ANALYTICS PHONES ── */
-.analytics-section{padding:4rem 1.5rem;max-width:1100px;margin:0 auto}
+.analytics-section{padding:4rem 1.5rem;width:100%;position:relative;overflow:hidden}
+.analytics-section .analytics-header,.analytics-section .phone-row{max-width:1100px;margin-left:auto;margin-right:auto}
 .analytics-header{text-align:center;margin-bottom:3rem}
 .analytics-header h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:300}
 .analytics-header p{color:var(--muted);font-size:0.95rem;max-width:500px;margin:0.5rem auto 0}
@@ -1378,14 +1380,14 @@ footer .footer-logo{
   <div class="hero-content">
     <div class="logo">mirrah</div>
     <h1>the app that meets you <em>mid-spiral.</em></h1>
-    <p class="sub">"you can name your attachment style, explain your triggers to your therapist, and still check his Instagram activity four times before lunch."</p>
+    <p class="sub">"you can name your attachment style, dissect your triggers better than any therapist, and still send the text you swore you wouldn't."</p>
 
     <div class="waitlist" id="hero-waitlist">
       <h3>join the waitlist</h3>
       <p class="counter"><span id="hero-counter"></span> people already waiting</p>
       <form id="hero-form" onsubmit="return handleSubmit(event, 'hero-waitlist')">
         <input type="email" name="email" placeholder="your email" required>
-        <button type="submit">i want early access</button>
+        <button type="submit">reclaim your sovereignty</button>
       </form>
       <p class="note">no spam. just a quiet heads-up when we're ready.</p>
     </div>
@@ -1464,7 +1466,14 @@ footer .footer-logo{
 </section>
 
 <!-- ══════ HOW IT WORKS ══════ -->
-<section class="how">
+<section class="how section-video">
+  <div class="vid-bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/water-loop.webm" type="video/webm">
+      <source src="assets/water-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="vid-overlay"></div>
   <div class="how-inner">
     <h2 class="reveal">how mirrah works</h2>
     <p class="how-sub reveal">three steps. under two minutes. your nervous system does the rest.</p>
@@ -1515,45 +1524,15 @@ footer .footer-logo{
   </div>
 </section>
 
-<!-- ══════ TRUST & SCIENCE ══════ -->
-<section class="trust-section reveal">
-  <h2>built on science, not trends</h2>
-  <p class="trust-sub">mirrah's approach is grounded in three research-backed frameworks.</p>
-
-  <div class="method-badges">
-    <div class="method-badge method-badge--polyvagal">
-      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 4 6 4 10C4 14 9 16 9 16C9 16 14 14 14 10C14 6 9 2 9 2Z" stroke="#2D7A6A" stroke-width="1.2" fill="rgba(90,175,160,0.15)"/><path d="M9 6V12" stroke="#2D7A6A" stroke-width="1"/><path d="M7 8L9 6L11 8" stroke="#2D7A6A" stroke-width="1"/></svg>
-      polyvagal-informed
-    </div>
-    <div class="method-badge method-badge--somatic">
-      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="#8B6020" stroke-width="1.2" fill="rgba(232,184,96,0.15)"/><path d="M9 10V14" stroke="#8B6020" stroke-width="1.2"/><path d="M6 12H12" stroke="#8B6020" stroke-width="1.2"/><path d="M7 16H11" stroke="#8B6020" stroke-width="1"/></svg>
-      somatic experiencing
-    </div>
-    <div class="method-badge method-badge--adhd">
-      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#6B58A8" stroke-width="1.2" fill="rgba(184,165,212,0.1)"/><path d="M9 5V9L12 11" stroke="#6B58A8" stroke-width="1.2" stroke-linecap="round"/></svg>
-      ADHD-primary design
-    </div>
-  </div>
-
-  <div class="trust-citations">
-    <div class="trust-cite">
-      <div class="cite-source">polyvagal theory</div>
-      <p><strong>your nervous system has three states</strong> — fight/flight, freeze, and safe. stephen porges' research (1994) showed that the body decides which state you're in before your conscious mind knows. mirrah reads your body state first.</p>
-    </div>
-    <div class="trust-cite">
-      <div class="cite-source">somatic experiencing</div>
-      <p><strong>the body stores what the mind can't process.</strong> peter levine's 40 years of clinical research shows that body-first interventions resolve activation faster than cognitive approaches. mirrah's exercises are built on this.</p>
-    </div>
-    <div class="trust-cite">
-      <div class="cite-source">the 90-second rule</div>
-      <p><strong>neurochemicals flush in 90 seconds.</strong> jill bolte taylor's research at harvard showed that the chemical lifespan of an emotion is 90 seconds. everything after that is a story. mirrah lives in that window.</p>
-    </div>
-  </div>
-  <div class="section-cta"><a onclick="openWaitlist()">science-backed. join the waitlist</a></div>
-</section>
-
 <!-- ══════ ANALYTICS PHONES ══════ -->
-<section class="analytics-section reveal">
+<section class="analytics-section section-video reveal">
+  <div class="vid-bg">
+    <video autoplay muted loop playsinline>
+      <source src="assets/fingertips-loop.webm" type="video/webm">
+      <source src="assets/fingertips-loop.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="vid-overlay"></div>
   <div class="analytics-header">
     <h2>mirrah learns you</h2>
     <p>the more you use it, the more it sees. your patterns. your shifts. your growth.</p>
@@ -1625,6 +1604,43 @@ footer .footer-logo{
       <div class="phone-label">state trends</div>
     </div>
   </div>
+</section>
+
+<!-- ══════ TRUST & SCIENCE ══════ -->
+<section class="trust-section reveal">
+  <h2>built on science, not trends</h2>
+  <p class="trust-sub">mirrah's approach is grounded in three research-backed frameworks.</p>
+
+  <div class="method-badges">
+    <div class="method-badge method-badge--polyvagal">
+      <svg viewBox="0 0 18 18" fill="none"><path d="M9 2C9 2 4 6 4 10C4 14 9 16 9 16C9 16 14 14 14 10C14 6 9 2 9 2Z" stroke="#2D7A6A" stroke-width="1.2" fill="rgba(90,175,160,0.15)"/><path d="M9 6V12" stroke="#2D7A6A" stroke-width="1"/><path d="M7 8L9 6L11 8" stroke="#2D7A6A" stroke-width="1"/></svg>
+      polyvagal-informed
+    </div>
+    <div class="method-badge method-badge--somatic">
+      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="7" r="3" stroke="#8B6020" stroke-width="1.2" fill="rgba(232,184,96,0.15)"/><path d="M9 10V14" stroke="#8B6020" stroke-width="1.2"/><path d="M6 12H12" stroke="#8B6020" stroke-width="1.2"/><path d="M7 16H11" stroke="#8B6020" stroke-width="1"/></svg>
+      somatic experiencing
+    </div>
+    <div class="method-badge method-badge--adhd">
+      <svg viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6" stroke="#6B58A8" stroke-width="1.2" fill="rgba(184,165,212,0.1)"/><path d="M9 5V9L12 11" stroke="#6B58A8" stroke-width="1.2" stroke-linecap="round"/></svg>
+      ADHD-primary design
+    </div>
+  </div>
+
+  <div class="trust-citations">
+    <div class="trust-cite">
+      <div class="cite-source">polyvagal theory</div>
+      <p><strong>your nervous system has three states</strong> — fight/flight, freeze, and safe. stephen porges' research (1994) showed that the body decides which state you're in before your conscious mind knows. mirrah reads your body state first.</p>
+    </div>
+    <div class="trust-cite">
+      <div class="cite-source">somatic experiencing</div>
+      <p><strong>the body stores what the mind can't process.</strong> peter levine's 40 years of clinical research shows that body-first interventions resolve activation faster than cognitive approaches. mirrah's exercises are built on this.</p>
+    </div>
+    <div class="trust-cite">
+      <div class="cite-source">the 90-second rule</div>
+      <p><strong>neurochemicals flush in 90 seconds.</strong> jill bolte taylor's research at harvard showed that the chemical lifespan of an emotion is 90 seconds. everything after that is a story. mirrah lives in that window.</p>
+    </div>
+  </div>
+  <div class="section-cta"><a onclick="openWaitlist()">science-backed. join the waitlist</a></div>
 </section>
 
 <!-- ══════ QUOTE ══════ -->
