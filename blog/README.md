@@ -42,6 +42,24 @@ Flipping a post back to `published: false` and rebuilding removes its page clean
 which posts are live vs held on every run. `posts.json` carries a `note` on posts whose source still
 has author **NEEDS-SOURCING** flags — verify those claims before setting them live.
 
+### Daily auto-publisher (launchd)
+
+`auto-publish.sh` + a macOS launchd agent (`~/Library/LaunchAgents/app.mirrah.blog-autopublish.plist`,
+label `app.mirrah.blog-autopublish`) run the build once a day (09:00). When a scheduled `publish_date`
+arrives, the build output changes and the script commits + pushes to `main` (deploying via Pages); on
+days with nothing newly due it pushes nothing. The job runs on this Mac because the post sources live
+here, outside the repo. Logs: `~/Library/Logs/mirrah-blog-autopublish.log`.
+
+```bash
+# manage the agent
+launchctl print  gui/$(id -u)/app.mirrah.blog-autopublish   # status
+launchctl kickstart -k gui/$(id -u)/app.mirrah.blog-autopublish   # run it now
+launchctl bootout gui/$(id -u)/app.mirrah.blog-autopublish   # disable
+```
+
+Requirements: the Mac is powered on around 09:00 (launchd runs a missed job on next wake), and git push
+credentials are cached for non-interactive use (the osxkeychain helper, already set up from manual pushes).
+
 ## Note: in-body infographics
 
 The source posts contain `[INFOGRAPHIC: …]` markers, but the captions are designer briefs, so the
