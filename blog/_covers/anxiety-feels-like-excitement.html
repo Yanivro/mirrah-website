@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>anxiety feels like excitement — mirrah cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:900px;height:1125px;overflow:hidden;}
+  body{background:#1D2830;font-family:Nunito,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased;}
+
+  .slide{
+    width:900px; height:1125px;
+    background:linear-gradient(to bottom,
+      #2A1F1A 0%, #3D2820 22%, #3A2535 52%, #252B35 78%, #1D2830 100%);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:64px 72px 58px;
+    position:relative; overflow:hidden;
+  }
+  /* ambient radial glow mid-frame */
+  .slide::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 48%, rgba(196,114,90,.15), transparent 60%);
+  }
+  .slide > *{position:relative; z-index:1;}
+
+  /* TOP: kick label */
+  .kick{
+    font-family:Nunito; font-size:13px; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase;
+    color:rgba(196,114,90,.7);
+  }
+
+  /* MIDDLE: headline + waveforms */
+  .mid{display:flex; flex-direction:column; gap:0;}
+
+  .ttl-xl{
+    font-family:"Source Serif 4",serif; font-style:italic; font-weight:600;
+    font-size:74px; line-height:1.05; color:#F5EDE4;
+    letter-spacing:-.015em;
+  }
+
+  /* two waveform columns */
+  .waveform-block{
+    display:flex; gap:40px; align-items:flex-end;
+    margin-top:64px;
+  }
+  .wf-col{flex:1; display:flex; flex-direction:column; align-items:center; gap:16px;}
+  .wf-svg{width:100%; display:block;}
+  .wf-label{
+    font-family:Nunito; font-size:14px; font-weight:800;
+    letter-spacing:3px; text-transform:uppercase;
+  }
+  .wf-label.anx{color:#C4725A;}
+  .wf-label.exc{color:#6AADA0;}
+
+  /* "same physiological arousal" bridge caption */
+  .wf-bridge{
+    display:flex; align-items:center; gap:0; margin-top:28px;
+  }
+  .bridge-line{flex:1; height:1px; background:rgba(245,237,228,.18);}
+  .bridge-text{
+    padding:0 20px;
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-size:18px; color:rgba(245,237,228,.48); white-space:nowrap;
+  }
+
+  /* BOTTOM: divider + subline */
+  .bottom{}
+  .divider{
+    width:100%; height:1px;
+    background:rgba(196,114,90,.25);
+    margin-bottom:30px;
+  }
+  .cover-sub{
+    font-family:Nunito; font-weight:400;
+    font-size:24px; line-height:1.5; color:rgba(245,237,228,.68);
+    letter-spacing:.005em;
+  }
+
+  .wm-corner{
+    position:absolute; bottom:40px; right:62px;
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-weight:600; font-size:19px; color:rgba(196,114,90,.5);
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="kick">mirrah · the space between</div>
+
+  <div class="mid">
+    <div class="ttl-xl">your body doesn't<br>know the difference.</div>
+
+    <!-- two identical sine waveforms, same shape, different color -->
+    <div class="waveform-block">
+      <div class="wf-col">
+        <svg class="wf-svg" viewBox="0 0 220 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 48 C14 48 18 8 36 8 C54 8 58 88 76 88 C94 88 98 8 116 8 C134 8 138 88 156 88 C174 88 178 8 196 8 C208 8 214 48 220 48"
+            stroke="#C4725A" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="wf-label anx">anxiety</div>
+      </div>
+      <div class="wf-col">
+        <svg class="wf-svg" viewBox="0 0 220 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 48 C14 48 18 8 36 8 C54 8 58 88 76 88 C94 88 98 8 116 8 C134 8 138 88 156 88 C174 88 178 8 196 8 C208 8 214 48 220 48"
+            stroke="#6AADA0" stroke-width="3.5" stroke-linecap="round" fill="none"/>
+        </svg>
+        <div class="wf-label exc">excitement</div>
+      </div>
+    </div>
+
+    <!-- bridge caption -->
+    <div class="wf-bridge">
+      <div class="bridge-line"></div>
+      <div class="bridge-text">same physiological arousal</div>
+      <div class="bridge-line"></div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="divider"></div>
+    <div class="cover-sub">anxiety. excitement. same signal. different story.</div>
+  </div>
+
+  <div class="wm-corner">mirrah</div>
+</div>
+</body>
+</html>

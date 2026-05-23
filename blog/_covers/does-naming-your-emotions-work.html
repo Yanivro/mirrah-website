@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>does naming your emotions work — mirrah cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:900px;height:1125px;overflow:hidden;}
+  body{
+    font-family:Nunito,-apple-system,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  :root{
+    --amber:#E8A24A; --amber-dark:#c4831e;
+    --ink-dark:#0D0F1A; --ink-mid:#1A1D2E;
+    --text-main:#F2F2F5; --text-muted:rgba(242,242,245,0.65);
+  }
+
+  .slide{
+    width:900px; height:1125px;
+    background:linear-gradient(170deg, #0D0F1A 0%, #141726 55%, #1a1430 100%);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:64px 72px 58px;
+    position:relative; overflow:hidden;
+  }
+
+  /* subtle warm glow near center */
+  .slide::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:radial-gradient(ellipse at 50% 46%, rgba(232,162,74,.09), transparent 58%);
+  }
+  .slide > *{position:relative; z-index:1;}
+
+  /* abstract library bars — decorative background element */
+  .lib-bars{
+    position:absolute; right:64px; top:50%; transform:translateY(-50%);
+    display:flex; flex-direction:column; gap:10px;
+    opacity:0.10; z-index:0;
+  }
+  .lib-bar{height:12px; border-radius:6px; background:var(--amber);}
+
+  /* TOP */
+  .kick{
+    font-family:Nunito; font-size:13px; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase; color:rgba(232,162,74,.75);
+  }
+
+  /* MID */
+  .mid{}
+  .ttl-xl{
+    font-family:"Source Serif 4",serif; font-style:italic; font-weight:600;
+    font-size:68px; line-height:1.05; color:var(--text-main);
+    letter-spacing:-.015em;
+  }
+
+  /* abstract word-precision visual */
+  .precision-block{
+    margin-top:52px;
+    display:flex; flex-direction:column; gap:10px;
+  }
+  .prec-row{
+    display:flex; align-items:center; gap:16px;
+  }
+  .prec-bar-wrap{flex:1; height:14px; background:rgba(255,255,255,.06); border-radius:7px; overflow:hidden;}
+  .prec-bar{height:100%; border-radius:7px;}
+  .prec-label{
+    font-family:Nunito; font-size:11px; font-weight:800;
+    letter-spacing:1.8px; text-transform:uppercase;
+    width:130px; text-align:right; flex-shrink:0;
+  }
+
+  .prec-row.wide .prec-bar{width:100%; background:rgba(180,80,60,.55);}
+  .prec-row.wide .prec-label{color:rgba(200,100,80,.9);}
+
+  .prec-row.mid-row .prec-bar{width:62%; background:rgba(210,140,60,.55);}
+  .prec-row.mid-row .prec-label{color:rgba(210,140,60,.9);}
+
+  .prec-row.narrow .prec-bar{width:30%; background:rgba(232,162,74,.8);}
+  .prec-row.narrow .prec-label{color:var(--amber);}
+
+  .prec-caption{
+    font-family:Nunito; font-size:11px; color:var(--text-muted);
+    margin-top:6px; letter-spacing:.3px;
+  }
+
+  /* BOTTOM */
+  .divider{
+    width:100%; height:1px;
+    background:rgba(242,242,245,.12);
+    margin-bottom:26px;
+  }
+  .cover-sub{
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-size:24px; line-height:1.4; color:rgba(242,242,245,.75);
+  }
+
+  .wm-corner{
+    position:absolute; bottom:40px; right:62px;
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-weight:600; font-size:19px; color:rgba(232,162,74,.5);
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="lib-bars" aria-hidden="true">
+    <div class="lib-bar" style="width:220px;"></div>
+    <div class="lib-bar" style="width:170px;"></div>
+    <div class="lib-bar" style="width:130px;"></div>
+    <div class="lib-bar" style="width:190px;"></div>
+    <div class="lib-bar" style="width:100px;"></div>
+    <div class="lib-bar" style="width:155px;"></div>
+  </div>
+
+  <div class="kick">mirrah · the space between</div>
+
+  <div class="mid">
+    <div class="ttl-xl">your brain has to<br>calm down to<br>name the feeling.</div>
+
+    <div class="precision-block" aria-hidden="true">
+      <div class="prec-row wide">
+        <div class="prec-label">i feel bad</div>
+        <div class="prec-bar-wrap"><div class="prec-bar"></div></div>
+      </div>
+      <div class="prec-row mid-row">
+        <div class="prec-label">i feel angry</div>
+        <div class="prec-bar-wrap"><div class="prec-bar"></div></div>
+      </div>
+      <div class="prec-row narrow">
+        <div class="prec-label">frustrated</div>
+        <div class="prec-bar-wrap"><div class="prec-bar"></div></div>
+      </div>
+      <div class="prec-caption">vague word = massive search cost · precise word = fast, efficient, correct</div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="divider"></div>
+    <div class="cover-sub">that's not a metaphor. here's the mechanism.</div>
+  </div>
+
+  <div class="wm-corner">mirrah</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#EDE5DA">
+<title>Why Anxiety Feels Like Excitement (Same Body, Different Story) — mirrah</title>
+<meta name="description" content="Your pounding heart, tight chest, and racing thoughts are the same signal whether you're anxious or excited. Dr. Lisa Feldman Barrett explains why — and how to change which one wins.">
+<meta name="keywords" content="anxiety feels like excitement">
+<link rel="canonical" href="https://mirrah.app/blog/anxiety-feels-like-excitement">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Why Anxiety Feels Like Excitement (Same Body, Different Story)">
+<meta property="og:description" content="Your pounding heart, tight chest, and racing thoughts are the same signal whether you're anxious or excited. Dr. Lisa Feldman Barrett explains why — and how to change which one wins.">
+<meta property="og:image" content="assets/covers/anxiety-feels-like-excitement.png">
+<meta property="og:url" content="https://mirrah.app/blog/anxiety-feels-like-excitement">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Why Anxiety Feels Like Excitement (Same Body, Different Story)">
+<meta name="twitter:description" content="Your pounding heart, tight chest, and racing thoughts are the same signal whether you're anxious or excited. Dr. Lisa Feldman Barrett explains why — and how to change which one wins.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23EDE5DA'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-family='Georgia,serif' font-size='18' font-weight='300' font-style='italic' fill='%236B58A8'%3Em%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why do anxiety and excitement feel identical in my body?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because they are physiologically identical. Dr. Lisa Feldman Barrett's research shows that the brain produces arousal — a high-energy autonomic state — and then assigns a label based on context and prediction. Anxiety and excitement share the same arousal level. What differs is valence: the meaning the brain assigns to the signal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 'butterflies in formation' mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It's Dr. Lisa Feldman Barrett's shorthand for recategorizing physiological signals. Instead of letting the brain file your pounding heart under dread, you consciously offer it a new category: determination or focused energy. Changing the label changes the brain's action plan. The butterflies don't disappear — they start flying in the same direction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use reappraisal during an RSD surge or anxiety attack?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not at the absolute peak. At peak activation, the prefrontal cortex is offline. Body-first tools work here: Dr. Andrew Huberman's physiological sigh (double inhale through the nose, long exhale through the mouth) rapidly decelerates heart rate via vagal control. Reappraisal becomes available after roughly 90 seconds, when the prefrontal cortex comes back online."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is reappraisal the same as positive thinking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Reappraisal via Barrett's framework intervenes at the level of neurological categorization, not attitude. You're offering the arousal a different category so the brain builds a different action plan. The arousal stays. The construction shifts. This is architecture, not motivation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does naming an emotion like RSD actually help?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, neurologically. Multiple experts — Dr. Alok Kanojia, Dr. Marc Brackett, and Dr. Lisa Feldman Barrett — converge on this: precise labeling forces the amygdala to yield bandwidth to linguistic processing centers, which has a measurable calming effect. Naming 'RSD' instead of 'I'm being abandoned' shifts the categorization and changes the action plan."
+      }
+    }
+  ]
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#EDE5DA; --bg2:#E4D9CC; --bg3:#D8CFC2;
+  --text:#1a1510; --muted:#3a3228; --hint:rgba(26,21,16,0.6);
+  --glass:rgba(255,255,255,0.55); --glass-strong:rgba(255,255,255,0.82);
+  --glass-border:rgba(0,0,0,0.06);
+  --neu-light:#fff; --neu-dark:#d8d4cf;
+  --coral:#C4725A; --coral-dark:#A85C46;
+  --teal:#6AADA0;
+  --lavender:#B8A5D4; --accent-deep:#6B58A8;
+  --gold:#E8B878;
+  --on-coral:#FFFAF0;
+  --accent:#B8A5D4; --accent-text:#5B4A86;
+}
+html{scroll-behavior:smooth;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.7;max-width:100vw}
+
+/* ── AMBIENT BLOBS ── */
+.ambient{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.ambient .b{position:absolute;border-radius:50% 40% 60% 50%;filter:blur(100px);opacity:0.18}
+.ambient .b1{width:500px;height:500px;background:#9B7ED8;top:-120px;left:-180px;animation:drift1 40s ease-in-out infinite}
+.ambient .b2{width:400px;height:400px;background:#5AAFA0;bottom:-80px;right:-120px;animation:drift2 45s ease-in-out infinite}
+.ambient .b3{width:340px;height:340px;background:#F0A050;top:55%;left:62%;animation:drift3 38s ease-in-out infinite}
+@keyframes drift1{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(70px,50px) scale(1.08)}}
+@keyframes drift2{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-50px,-70px) scale(1.12)}}
+@keyframes drift3{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(-35px,45px) scale(0.92)}}
+@keyframes glowPulse{0%,100%{box-shadow:0 4px 20px rgba(107,88,168,0.3)}50%{box-shadow:0 4px 30px rgba(107,88,168,0.5)}}
+
+/* ── SITE HEADER ── */
+.site-header{
+  position:relative;z-index:10;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.25rem 2rem;
+  border-bottom:1px solid var(--glass-border);
+  background:rgba(237,229,218,0.72);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+}
+.site-header .wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:1.5rem;letter-spacing:0.12em;
+  color:var(--accent-deep);
+  text-decoration:none;
+  transition:opacity 0.2s;
+}
+.site-header .wordmark:hover{opacity:0.72}
+.site-header .back-link{
+  font-size:0.82rem;font-weight:300;
+  color:var(--muted);text-decoration:none;
+  letter-spacing:0.02em;
+  transition:color 0.2s;
+  display:flex;align-items:center;gap:0.35rem;
+}
+.site-header .back-link:hover{color:var(--coral)}
+.site-header .back-link::before{content:'←';font-size:0.9rem}
+
+/* ── ARTICLE LAYOUT ── */
+.article-wrap{
+  position:relative;z-index:1;
+  max-width:740px;
+  margin:0 auto;
+  padding:3rem 1.5rem 5rem;
+}
+
+/* ── COVER IMAGE ── */
+.cover-frame{
+  width:100%;
+  aspect-ratio:4/5;
+  max-height:540px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:8px 8px 32px var(--neu-dark),-8px -8px 32px var(--neu-light);
+  margin-bottom:2.5rem;
+  background:var(--bg2);
+  position:relative;
+}
+.cover-frame img{
+  width:100%;height:100%;
+  object-fit:cover;
+  display:block;
+  transition:opacity 0.3s;
+}
+.cover-frame .cover-fallback{
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(145deg,var(--bg2),var(--bg3));
+  padding:2.5rem;
+}
+.cover-frame .cover-fallback span{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:clamp(1.3rem,3vw,1.8rem);
+  color:var(--muted);
+  text-align:center;
+  line-height:1.4;
+  opacity:0.7;
+}
+
+/* ── ARTICLE HEADER ── */
+.article-header{margin-bottom:2.5rem}
+.article-header h1{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(2rem,4.5vw,3rem);
+  font-weight:300;line-height:1.2;
+  margin-bottom:1rem;
+  text-wrap:balance;
+  color:var(--text);
+}
+.article-header .dek{
+  font-size:clamp(0.95rem,2vw,1.08rem);
+  font-weight:300;
+  color:var(--muted);
+  line-height:1.75;
+  margin-bottom:1rem;
+  font-style:italic;
+}
+.article-header .meta{
+  font-size:0.82rem;
+  font-weight:400;
+  color:var(--teal);
+  letter-spacing:0.02em;
+}
+.article-header .meta time{color:var(--teal)}
+
+/* ── HAIRLINE DIVIDER ── */
+.article-divider{
+  border:none;
+  border-top:1px solid var(--coral);
+  opacity:0.25;
+  margin:2rem 0;
+  width:48px;
+}
+
+/* ── ARTICLE BODY PROSE ── */
+.article-body{
+  font-size:clamp(0.97rem,2vw,1.05rem);
+  font-weight:300;
+  line-height:1.85;
+  color:var(--text);
+}
+.article-body h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,1.85rem);
+  font-weight:400;
+  line-height:1.25;
+  margin-top:2.75rem;
+  margin-bottom:0.9rem;
+  color:var(--text);
+}
+.article-body h3{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.1rem,2.5vw,1.4rem);
+  font-weight:400;
+  font-style:italic;
+  line-height:1.3;
+  margin-top:2rem;
+  margin-bottom:0.65rem;
+  color:var(--muted);
+}
+.article-body p{margin-bottom:1.25rem}
+.article-body p:last-child{margin-bottom:0}
+.article-body strong{font-weight:500;color:var(--text)}
+.article-body em{font-style:italic;color:var(--muted)}
+.article-body a{color:var(--coral);text-decoration:underline;text-underline-offset:3px;transition:color 0.2s}
+.article-body a:hover{color:var(--coral-dark)}
+.article-body ul,.article-body ol{padding-left:1.5rem;margin-bottom:1.25rem}
+.article-body li{margin-bottom:0.4rem;line-height:1.75}
+.article-body ul li::marker{color:var(--coral);opacity:0.6}
+.article-body ol li::marker{color:var(--coral);opacity:0.6;font-family:'Cormorant Garamond',serif;font-weight:400}
+.article-body hr{
+  border:none;
+  border-top:1px solid var(--glass-border);
+  margin:2.5rem 0;
+}
+.article-body blockquote{
+  border-left:3px solid var(--coral);
+  margin:1.75rem 0;
+  padding:0.75rem 1.25rem;
+  background:rgba(196,114,90,0.06);
+  border-radius:0 10px 10px 0;
+  font-style:italic;
+  color:var(--muted);
+}
+.article-body blockquote p{margin-bottom:0}
+
+/* ── TABLE ── */
+.article-body table{
+  width:100%;
+  border-collapse:collapse;
+  margin:2rem 0;
+  font-size:0.9rem;
+  line-height:1.6;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:4px 4px 16px var(--neu-dark),-4px -4px 16px var(--neu-light);
+}
+.article-body thead{background:var(--bg3)}
+.article-body th{
+  padding:0.75rem 1rem;
+  text-align:left;
+  font-family:'Cormorant Garamond',serif;
+  font-weight:400;
+  font-size:0.95rem;
+  color:var(--muted);
+  border-bottom:1px solid var(--glass-border);
+}
+.article-body td{
+  padding:0.7rem 1rem;
+  border-bottom:1px solid var(--glass-border);
+  background:var(--bg2);
+  vertical-align:top;
+}
+.article-body tr:last-child td{border-bottom:none}
+.article-body tr:nth-child(odd) td{background:rgba(237,229,218,0.6)}
+.article-body em.table-note{
+  display:block;
+  font-size:0.8rem;
+  color:var(--hint);
+  margin-top:-1rem;
+  margin-bottom:1.5rem;
+  font-style:italic;
+  line-height:1.5;
+}
+
+/* ── INFOGRAPHIC CALLOUT ── */
+.infographic-callout{
+  position:relative;
+  background:rgba(196,114,90,0.06);
+  border:1px solid rgba(196,114,90,0.18);
+  border-radius:14px;
+  padding:1.5rem 1.75rem 1.5rem 2rem;
+  margin:2rem 0;
+  box-shadow:5px 5px 18px var(--neu-dark),-5px -5px 18px var(--neu-light);
+}
+.infographic-callout::before{
+  content:'infographic';
+  display:block;
+  font-size:0.68rem;
+  letter-spacing:0.14em;
+  text-transform:lowercase;
+  color:var(--coral);
+  font-weight:400;
+  margin-bottom:0.55rem;
+  opacity:0.85;
+}
+.infographic-callout p{
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.1rem;
+  font-weight:400;
+  font-style:italic;
+  color:var(--muted);
+  line-height:1.6;
+  margin-bottom:0;
+}
+.infographic-callout::after{
+  content:'';
+  position:absolute;
+  left:0;top:16px;bottom:16px;
+  width:3px;
+  background:var(--coral);
+  border-radius:0 2px 2px 0;
+  opacity:0.45;
+}
+
+/* ── FAQ SECTION ── */
+.faq-section{margin-top:3rem}
+.faq-section h2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.4rem,3vw,1.85rem);
+  font-weight:400;
+  margin-bottom:1.5rem;
+  color:var(--text);
+}
+.faq-item{
+  border-bottom:1px solid var(--glass-border);
+  padding:0.25rem 0;
+}
+.faq-item:last-child{border-bottom:none}
+.faq-toggle{
+  width:100%;
+  background:none;border:none;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0.9rem 0;
+  text-align:left;
+  cursor:pointer;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.97rem;
+  font-weight:400;
+  color:var(--text);
+  line-height:1.5;
+  gap:1rem;
+  transition:color 0.2s;
+}
+.faq-toggle:hover{color:var(--coral)}
+.faq-toggle .faq-icon{
+  flex:0 0 20px;
+  width:20px;height:20px;
+  border-radius:50%;
+  border:1px solid var(--glass-border);
+  background:var(--bg2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.9rem;
+  color:var(--coral);
+  transition:transform 0.25s,background 0.2s;
+  box-shadow:2px 2px 6px var(--neu-dark),-2px -2px 6px var(--neu-light);
+  flex-shrink:0;
+}
+.faq-item.open .faq-icon{transform:rotate(45deg);background:var(--bg3)}
+.faq-body{
+  display:none;
+  padding:0 0 1rem 0;
+  font-size:0.93rem;
+  font-weight:300;
+  color:var(--muted);
+  line-height:1.8;
+}
+.faq-item.open .faq-body{display:block}
+
+/* ── PRACTICE CLOSE ── */
+.practice-close{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.05rem,2.5vw,1.2rem);
+  font-weight:300;
+  font-style:italic;
+  line-height:1.8;
+  color:var(--muted);
+  border-left:2px solid var(--coral);
+  padding:0.75rem 0 0.75rem 1.5rem;
+  margin-top:1rem;
+  opacity:0.9;
+}
+
+/* ── END CTA ── */
+.end-cta{
+  margin-top:4rem;
+  padding:2.5rem 2rem;
+  background:var(--glass-strong);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--glass-border);
+  border-radius:20px;
+  box-shadow:8px 8px 24px var(--neu-dark),-8px -8px 24px var(--neu-light);
+  text-align:center;
+}
+.end-cta .cta-line1{
+  font-size:0.9rem;
+  font-weight:300;
+  color:var(--muted);
+  line-height:1.7;
+  margin-bottom:0.75rem;
+}
+.end-cta .cta-line2{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(1.2rem,3vw,1.55rem);
+  font-weight:300;
+  font-style:italic;
+  color:var(--text);
+  line-height:1.4;
+  margin-bottom:1.75rem;
+}
+.end-cta .waitlist{
+  background:transparent;
+  backdrop-filter:none;
+  -webkit-backdrop-filter:none;
+  border:none;
+  border-radius:0;
+  padding:0;
+  max-width:380px;
+  margin:0 auto;
+  box-shadow:none;
+}
+.end-cta .waitlist input{
+  width:100%;
+  padding:0.75rem 1rem;
+  border:1px solid var(--glass-border);
+  border-radius:10px;
+  background:rgba(255,255,255,0.6);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.9rem;
+  font-weight:300;
+  color:var(--text);
+  margin-bottom:0.75rem;
+  outline:none;
+  transition:border 0.2s,box-shadow 0.2s;
+  box-shadow:inset 2px 2px 5px rgba(0,0,0,0.04),inset -2px -2px 5px rgba(255,255,255,0.8);
+}
+.end-cta .waitlist input:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(184,165,212,0.15),inset 2px 2px 5px rgba(0,0,0,0.04);
+}
+.end-cta .waitlist input::placeholder{color:var(--hint)}
+.end-cta .waitlist button{
+  width:100%;padding:0.85rem;border:none;border-radius:10px;
+  background:linear-gradient(135deg,var(--accent-deep),#8B6EC0);
+  color:#FFFAF0;
+  font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:400;
+  cursor:pointer;transition:all 0.3s;margin-top:0.25rem;
+  box-shadow:0 4px 20px rgba(107,88,168,0.35),0 2px 8px rgba(107,88,168,0.2);
+  animation:glowPulse 4s ease-in-out infinite;
+}
+.end-cta .waitlist button:hover{
+  background:linear-gradient(135deg,#7B68B8,#9B80D0);
+  transform:translateY(-2px);
+  box-shadow:0 8px 35px rgba(107,88,168,0.5),0 4px 12px rgba(107,88,168,0.3);
+}
+.end-cta .cta-note{
+  font-size:0.78rem;
+  color:var(--hint);
+  margin-top:1rem;
+  line-height:1.6;
+}
+.end-cta .success-msg{
+  display:none;
+  font-family:'Cormorant Garamond',serif;
+  font-size:1.2rem;
+  font-weight:300;
+  font-style:italic;
+  color:var(--accent-text);
+  padding:1rem 0;
+  line-height:1.6;
+}
+
+/* ── SITE FOOTER ── */
+.site-footer{
+  position:relative;z-index:1;
+  border-top:1px solid var(--glass-border);
+  padding:2rem 1.5rem;
+  text-align:center;
+  background:rgba(237,229,218,0.5);
+}
+.site-footer .footer-wordmark{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;font-weight:300;
+  font-size:1rem;letter-spacing:0.1em;
+  color:var(--accent-deep);
+  text-decoration:none;
+  display:inline-block;
+  margin-bottom:0.5rem;
+}
+.site-footer p{
+  font-size:0.75rem;
+  color:var(--hint);
+  line-height:1.7;
+}
+.site-footer a{color:var(--hint);text-decoration:none;transition:color 0.2s}
+.site-footer a:hover{color:var(--coral)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:640px){
+  .site-header{padding:1rem 1.25rem}
+  .article-wrap{padding:2rem 1.25rem 4rem}
+  .cover-frame{aspect-ratio:3/4;border-radius:14px}
+  .article-body table{font-size:0.82rem}
+  .article-body th,.article-body td{padding:0.55rem 0.65rem}
+  .end-cta{padding:2rem 1.25rem}
+  .infographic-callout{padding:1.25rem 1.25rem 1.25rem 1.5rem}
+}
+@media(max-width:440px){
+  .article-body table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+}
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true">
+  <div class="b b1"></div>
+  <div class="b b2"></div>
+  <div class="b b3"></div>
+</div>
+
+<header class="site-header">
+  <a href="../index.html" class="wordmark">mirrah</a>
+  <a href="index.html" class="back-link">the space between</a>
+</header>
+
+<main>
+  <article class="article-wrap" itemscope itemtype="https://schema.org/Article">
+
+    <div class="cover-frame">
+      <img
+        src="assets/covers/anxiety-feels-like-excitement.png"
+        alt="Why Anxiety Feels Like Excitement (Same Body, Different Story)"
+        loading="eager"
+        decoding="async"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+        itemprop="image"
+      >
+      <div class="cover-fallback" style="display:none">
+        <span>Why Anxiety Feels Like Excitement (Same Body, Different Story)</span>
+      </div>
+    </div>
+
+    <header class="article-header">
+      <h1 itemprop="headline">Why Anxiety Feels Like Excitement (Same Body, Different Story)</h1>
+      <p class="dek" itemprop="description">Your pounding heart, tight chest, and racing thoughts are the same signal whether you're anxious or excited. Dr. Lisa Feldman Barrett explains why — and how to change which one wins.</p>
+      <p class="meta">
+        <time datetime="2026-05-21" itemprop="datePublished">may 21, 2026</time>
+        &middot; 8 min read
+      </p>
+    </header>
+
+    <hr class="article-divider">
+
+    <div class="article-body" itemprop="articleBody">
+      <p>Your chest is tight. Your heart is pounding. Your thoughts are moving at what someone once described as "race car speed with bicycle brakes." Your body is doing one thing. Your brain is filing it under dread.</p>
+<p>Here's what Dr. Lisa Feldman Barrett's research actually says: that filing is a construction, not a fact. The same physiological arousal — same pounding heart, same tight chest, same racing energy — is the raw material for anxiety, excitement, or determination. The difference isn't in the signal. It's in the story the brain wraps around it. And the story, at least partly, is something you can intervene in.</p>
+<p>That's not toxic positivity. The mechanism is neurobiological. This post is going to show you exactly how it works — and where it honestly doesn't.</p>
+<hr>
+<h2>Why Does Anxiety Feel Exactly Like Excitement?</h2>
+<p>Because physiologically, they are the same event.</p>
+<p>Dr. Barrett's framework of <em>constructed emotion</em> holds that the brain produces two core biological axes: <em>arousal</em> (how activated your body is) and <em>valence</em> (whether that activation feels good or bad). Anxiety and excitement sit at the same point on the arousal axis — both are high-energy, high-activation states. What differs is valence: the meaning the brain assigns.</p>
+<p>Your nervous system doesn't produce distinct "anxiety chemicals" and "excitement chemicals." It produces arousal. The brain then takes that signal and builds an emotion around it — drawing on context, past experience, and prediction to decide what this surge means, and what you should do next.</p>
+<p>Dr. Barrett calls these constructed emotions "recipes for action." The recipe for anxiety says: avoid, contract, protect. The recipe for excitement says: approach, open, act. The physiological ingredients are identical. The recipe is written by the brain — and the brain is taking suggestions.</p>
+<hr>
+<h2>What Does "Butterflies in Formation" Actually Mean?</h2>
+<p>It's Dr. Barrett's shorthand for a technique with a clinical name: <em>recategorizing physiological signals</em>.</p>
+<p>The idea: when you feel the surge of pre-performance anxiety — or the tightening that comes when you're waiting for a text back — you consciously offer the brain a different label. Not "dread." Not "danger." Something like <em>determination</em>. Or "butterflies flying in formation." You're not lying to yourself. You're doing what the brain does automatically, but doing it deliberately: assigning a category to raw arousal so the brain knows what action plan to build.</p>
+<p>Dr. Barrett is explicit that changing the label changes the brain's action plan. The arousal doesn't disappear. The body doesn't suddenly go quiet. What changes is what the brain decides to <em>do</em> with the signal.</p>
+<p>This is different from CBT's "challenge the thought." You're not arguing with the feeling. You're offering it a better home.</p>
+<hr>
+<h2>When Does This NOT Work? The Honest Part.</h2>
+<p>At the absolute peak, it doesn't work. That's the honest part of this, and it matters.</p>
+<p>When the amygdala fires — fully activated, hands shaking, RSD arriving like a fact before your rational brain has time to form a complete sentence — the prefrontal cortex is offline. Cognitive tools require the prefrontal cortex. Which means reappraisal is temporarily unavailable.</p>
+<p>At the peak, body-first.</p>
+<p>Dr. Andrew Huberman's <em>physiological sigh</em> is designed for exactly this: double inhale through the nose (the second one brief, to fully inflate the lungs), followed by a long exhale through the mouth. The mechanism is specific: it offloads CO2, which decelerates heart rate via vagal control of the sinoatrial node, rapidly shifting the autonomic nervous system toward parasympathetic dominance. It's fast. It works during the window when nothing cognitive can.</p>
+<p>After that window — approximately 90 seconds — the prefrontal cortex starts coming back online. That's when reappraisal becomes available.</p>
+<p>The sequence matters: sigh first, reappraisal second.</p>
+<hr>
+<h2>What Does This Mean If You Have ADHD and RSD?</h2>
+<p>This is where the research gets specific in a way that actually lands.</p>
+<p>Rejection sensitive dysphoria arrives fully formed. Like a fact. Before the rational brain can even boot up — that's not a metaphor, that's the architecture. The ADHD nervous system processes perceived rejection as a survival-level threat. The amygdala fires fast, the certainty arrives before the prefrontal cortex has anything to say about it, and the surge is somatically indistinguishable from genuine danger.</p>
+<p>Dr. Barrett's framework offers the first honest reframe that doesn't ask you to think your way calm while the amygdala is still running the show. Here's what it actually says: that surge is physiological arousal awaiting a label. It is not evidence that the worst interpretation is true. It's raw signal — fast, real, loud — and the story being built around it is a construction, not a fact.</p>
+<p>The RSD surge isn't proof of danger. It's your body doing exactly what it's supposed to do with high arousal. The mistake is treating the brain's first-pass label as confirmed truth.</p>
+<p>Here's where the relief lives: you can name what's happening. Dr. Alok Kanojia, Dr. Marc Brackett, and Dr. Barrett all converge on this point — putting precise words to a feeling forces the amygdala to yield bandwidth to the brain's linguistic centers, which has a measurable calming effect. "This is RSD. This is arousal. This is my body doing what it does. This is not confirmation." That's not affirmation. That's categorization. And categorization changes the action plan.</p>
+<hr>
+<h2>Can You Actually Change Which Emotion the Arousal Becomes?</h2>
+<p>Yes — with two honest caveats.</p>
+<p>First, reappraisal works at mid-level activation, not at the peak. The prefrontal cortex has to be functional enough to intervene. After the 90-second amygdala window, it's available.</p>
+<p>Second, this is a practice, not a switch. The brain's prediction system is built on years of pattern-matching. The first time you offer a different label, the brain might accept it for 30 seconds before reverting. The 40th time, the window is longer. The brain updates its predictions incrementally — but it does update.</p>
+<p>The practical sequence, grounded in what the research actually supports:</p>
+<p><strong>1.</strong> Surge hits. Physiological sigh. Body first. <strong>2.</strong> Watch the 90 seconds. Don't act. <strong>3.</strong> Prefrontal cortex back online. Offer the label. <em>"This is determination. These are butterflies flying in formation."</em> <strong>4.</strong> The brain accepts the label — because it was looking for a category all along.</p>
+<hr>
+<h2>The Arousal × Emotion Table</h2>
+<p>All four emotions in this table share the same physiological arousal level. Only the brain's assigned meaning — the valence and label — differs.</p>
+<table><thead><tr><th>What you feel in your body</th><th>Anxiety labels it...</th><th>Excitement labels it...</th><th>Determination labels it...</th></tr></thead><tbody><tr><td>Pounding heart</td><td>"Something is wrong"</td><td>"This is thrilling"</td><td>"I'm mobilized"</td></tr><tr><td>Tight chest</td><td>"I can't handle this"</td><td>"I'm activated"</td><td>"I'm ready"</td></tr><tr><td>Racing thoughts</td><td>"I'm spiraling"</td><td>"My mind is alive"</td><td>"I'm focused"</td></tr><tr><td>Shallow breathing</td><td>"I'm panicking"</td><td>"I'm amped up"</td><td>"My body is gearing up"</td></tr></tbody></table>
+<em class="table-note">Source: Dr. Lisa Feldman Barrett's arousal × valence axes framework; strategy #18, recategorizing physiological signals. All four columns share identical autonomic arousal. The signal is constructed, not received.</em>
+<hr>
+<h2>3 Things to Actually Take From This</h2>
+<ol><li><strong>The signal is identical.</strong> Anxiety and excitement sit at the same point on the arousal axis. The emotion is the brain's construction around the signal — not the signal itself.</li></ol>
+<ol><li><strong>Body-first at the peak, reappraisal second.</strong> The physiological sigh works during the window when nothing cognitive can. Reappraisal works after the 90-second amygdala window. The order matters.</li></ol>
+<ol><li><strong>The RSD surge isn't confirmation.</strong> It's raw arousal awaiting a label. The certainty it manufactures is the construction. That gap — between the surge and the story — is real, and it's yours.</li></ol>
+<hr>
+<h2>Frequently Asked Questions</h2>
+<div class="faq-section"><div class="faq-item"><button class="faq-toggle">Why do anxiety and excitement feel identical in my body? <span class="faq-icon">+</span></button><div class="faq-body"><p>Because they are physiologically identical. Dr. Lisa Feldman Barrett's research shows that the brain produces arousal — a high-energy autonomic state — and then assigns a label based on context and prediction. Anxiety and excitement share the same arousal level on the brain's two-axis system. What differs is valence: the meaning the brain assigns to the signal.</p></div></div><div class="faq-item"><button class="faq-toggle">What does "butterflies in formation" actually mean? <span class="faq-icon">+</span></button><div class="faq-body"><p>It's Dr. Barrett's shorthand for recategorizing physiological signals. Instead of letting the brain file your pounding heart under "dread," you consciously offer it a new category: determination or focused energy. Changing the label changes the brain's action plan — what it constructs as the "recipe for action." The butterflies don't disappear. They start flying in the same direction.</p></div></div><div class="faq-item"><button class="faq-toggle">Is this just "think positive thoughts"? <span class="faq-icon">+</span></button><div class="faq-body"><p>No. The mechanism is neurobiological, not motivational. You're intervening in the brain's categorization and prediction system — offering it a different label so it builds a different action plan. The arousal stays. The construction shifts.</p></div></div><div class="faq-item"><button class="faq-toggle">Can I use reappraisal at the absolute peak of an RSD surge? <span class="faq-icon">+</span></button><div class="faq-body"><p>No — and the research is honest about this. At the absolute peak, the prefrontal cortex is offline and the amygdala is running pattern-match. That's when body-first tools like the physiological sigh (Dr. Andrew Huberman) work. Reappraisal becomes available after roughly 90 seconds, when the prefrontal cortex starts coming back online.</p></div></div><div class="faq-item"><button class="faq-toggle">How is this different from what CBT teaches? <span class="faq-icon">+</span></button><div class="faq-body"><p>CBT asks you to identify and challenge distorted thoughts. Reappraisal via Barrett's framework doesn't argue with the feeling — it intervenes at the level of categorization. You're not telling yourself the anxiety is wrong. You're offering the arousal a different category. The distinction matters for people whose anxiety is a rational response to real neurological patterns, not a distorted perception.</p></div></div><div class="faq-item"><button class="faq-toggle">Does naming an emotion like "RSD" actually do anything neurologically? <span class="faq-icon">+</span></button><div class="faq-body"><p>Yes. Dr. Alok Kanojia, Dr. Marc Brackett, and Dr. Barrett all converge here: precise labeling forces the amygdala to yield bandwidth to linguistic processing centers, which has a measurable calming effect. Naming "RSD" instead of "I'm being abandoned" shifts the categorization — and categorization shapes the action plan.</p></div></div><div class="faq-item"><button class="faq-toggle">What if I try the reappraisal and the anxiety comes back? <span class="faq-icon">+</span></button><div class="faq-body"><p>Expected. The brain's predictions are built on years of pattern-matching. A single reappraisal introduces a new data point — it doesn't overwrite the file. Over time, the brain updates its predictions incrementally. The practice doesn't fail because it doesn't work the first time. It works the way any new neural pathway works: slowly, then faster.</p></div></div></div>
+<hr>
+<h2>What This Looks Like in Practice</h2>
+<p>You're at your desk. He still hasn't texted back. Your chest is tight. Your thoughts are at that speed that makes it impossible to work. You can name the feeling: RSD. Arousal. High activation, unpleasant valence.</p>
+<p>You know what your body is doing. The surge is real. The certainty it's manufacturing — <em>He's pulling away. This is confirmation.</em> — that's the construction. Not the signal.</p>
+<p>The physiological sigh first. Not because it'll make it stop, but because you need the prefrontal cortex back online before you can do anything else useful. One breath. Long exhale. Watch the seconds.</p>
+<p>Ninety of them.</p>
+<p>Then: offer the label. <em>This is my body mobilizing. This is arousal. This is not proof.</em> Not an affirmation. A categorization. A different recipe for the same ingredients.</p>
+<p>You don't have to believe it fully the first time. The brain takes suggestions, but it takes them gradually. The practice is in showing up for the next 90 seconds — and the one after that.</p>
+<p class="practice-close">That's where Mirrah lives. Between the surge and the story. Between the trigger and the text.</p>
+<hr>
+    </div>
+
+  </article>
+</main>
+
+<section class="article-wrap" style="padding-top:0">
+  <div class="end-cta">
+    <p class="cta-line1">you can name the pattern while you're inside it. you send the text anyway.</p>
+    <p class="cta-line2">mirrah is what goes between the impulse and the action.</p>
+    <div class="waitlist">
+      <form id="blog-cta-form" onsubmit="return handleBlogSubmit(event)">
+        <input type="email" name="email" placeholder="your email" required aria-label="your email address" autocomplete="email" spellcheck="false">
+        <button type="submit">join the waitlist →</button>
+      </form>
+    </div>
+    <p class="cta-note">if you're tired of regretting what you sent at 1 am, mirrah is the right decision.</p>
+    <p class="success-msg" id="blog-cta-success">you're on the list. we'll be in touch.</p>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <a href="../index.html" class="footer-wordmark">mirrah</a>
+  <p><a href="index.html">the space between</a> &nbsp;&middot;&nbsp; <a href="../index.html">mirrah.app</a></p>
+  <p style="margin-top:0.4rem">creating the space between trigger and response.</p>
+</footer>
+
+<script>
+(function(){
+  var SHEET_URL='https://script.google.com/macros/s/AKfycbzVAYUTYBjzuu7dZspXFYULFLNK72rAMcd2G_VALUfLrHNZ0INRqaKJkZyDugFsME4_/exec';
+  var POST_SLUG='anxiety-feels-like-excitement';
+
+  window.handleBlogSubmit=function(e){
+    e.preventDefault();
+    var form=e.target;
+    var email=form.email.value.trim();
+    if(!email)return false;
+    var btn=form.querySelector('button');
+    btn.disabled=true;
+    btn.textContent='sending…';
+    fetch(SHEET_URL,{
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email:email,source:'mirrah-blog-'+POST_SLUG,consent_date:new Date().toISOString()})
+    }).finally(function(){
+      form.style.display='none';
+      document.getElementById('blog-cta-success').style.display='block';
+    });
+    return false;
+  };
+
+  /* FAQ accordion */
+  document.querySelectorAll('.faq-toggle').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.closest('.faq-item');
+      var wasOpen=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open')});
+      if(!wasOpen)item.classList.add('open');
+    });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>why am i so emotional for no reason — mirrah cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Source+Serif+4:ital,opsz,wght@1,8..60,400;1,8..60,600&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{width:900px;height:1125px;overflow:hidden;}
+  body{
+    font-family:Nunito,-apple-system,system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  :root{
+    --amber:#E8A24A; --amber-mid:#c48a30; --amber-dim:rgba(232,162,74,.55);
+    --teal-dim:rgba(106,173,160,.4);
+    --ink-dark:#0D0F1A; --ink-mid:#141726;
+    --text-main:#F2F2F5; --text-muted:rgba(242,242,245,.62);
+  }
+
+  .slide{
+    width:900px; height:1125px;
+    background:linear-gradient(165deg, #0D0F1A 0%, #12162a 50%, #0f1a1e 100%);
+    display:flex; flex-direction:column; justify-content:space-between;
+    padding:64px 72px 58px;
+    position:relative; overflow:hidden;
+  }
+  /* warm glow from upper-left, cool from lower-right */
+  .slide::before{
+    content:""; position:absolute; inset:0; z-index:0; pointer-events:none;
+    background:
+      radial-gradient(ellipse at 30% 35%, rgba(232,162,74,.07), transparent 50%),
+      radial-gradient(ellipse at 75% 70%, rgba(106,173,160,.06), transparent 50%);
+  }
+  .slide > *{position:relative; z-index:1;}
+
+  /* TOP */
+  .kick{
+    font-family:Nunito; font-size:13px; font-weight:700;
+    letter-spacing:2px; text-transform:uppercase; color:rgba(232,162,74,.7);
+  }
+
+  /* MID */
+  .ttl-xl{
+    font-family:"Source Serif 4",serif; font-style:italic; font-weight:600;
+    font-size:68px; line-height:1.05; color:var(--text-main);
+    letter-spacing:-.015em;
+  }
+
+  /* 3-step flow: body signal → raw affect → construction */
+  .flow-block{
+    margin-top:50px;
+    display:flex; flex-direction:column; gap:0;
+  }
+  .flow-step{
+    display:flex; align-items:flex-start; gap:18px;
+    padding:18px 20px;
+    border-radius:14px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.07);
+    position:relative;
+  }
+  .flow-step + .flow-step{margin-top:8px;}
+
+  .flow-num{
+    font-family:Nunito; font-size:11px; font-weight:800;
+    letter-spacing:2px; text-transform:uppercase;
+    flex-shrink:0; padding-top:3px;
+  }
+  .step-1 .flow-num{color:var(--amber);}
+  .step-2 .flow-num{color:rgba(200,150,80,.8);}
+  .step-3 .flow-num{color:rgba(160,120,60,.7);}
+
+  .flow-text{}
+  .flow-name{
+    font-family:Nunito; font-size:11px; font-weight:800;
+    letter-spacing:1.8px; text-transform:uppercase; margin-bottom:4px;
+  }
+  .step-1 .flow-name{color:var(--amber);}
+  .step-2 .flow-name{color:rgba(220,160,90,.8);}
+  .step-3 .flow-name{color:rgba(180,130,70,.7);}
+
+  .flow-desc{
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-size:18px; line-height:1.35; color:var(--text-muted);
+  }
+
+  /* small pulse line icon */
+  .flow-icon{flex-shrink:0; margin-top:2px;}
+
+  /* BOTTOM */
+  .divider{
+    width:100%; height:1px;
+    background:rgba(242,242,245,.10);
+    margin-bottom:26px;
+  }
+  .cover-sub{
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-size:24px; line-height:1.4; color:var(--text-muted);
+  }
+
+  .wm-corner{
+    position:absolute; bottom:40px; right:62px;
+    font-family:"Source Serif 4",serif; font-style:italic;
+    font-weight:600; font-size:19px; color:rgba(232,162,74,.45);
+  }
+</style>
+</head>
+<body>
+<div class="slide">
+
+  <div class="kick">mirrah · the space between</div>
+
+  <div class="mid">
+    <div class="ttl-xl">your bad mood<br>might not be<br>about him.</div>
+
+    <div class="flow-block">
+      <!-- step 1: body signal -->
+      <div class="flow-step step-1">
+        <svg class="flow-icon" aria-hidden="true" width="32" height="22" viewBox="0 0 32 22" fill="none">
+          <polyline points="0,11 6,11 9,3 12,19 15,6 18,16 21,11 32,11"
+            stroke="#E8A24A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="flow-text">
+          <div class="flow-name">body signal</div>
+          <div class="flow-desc">depleted, off, heavy — your body sends the signal first</div>
+        </div>
+      </div>
+      <!-- step 2: raw affect -->
+      <div class="flow-step step-2">
+        <svg class="flow-icon" aria-hidden="true" width="32" height="22" viewBox="0 0 32 22" fill="none">
+          <defs>
+            <linearGradient id="aff" x1="0" y1="0" x2="32" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#8B3020"/>
+              <stop offset="100%" stop-color="#E8D090"/>
+            </linearGradient>
+          </defs>
+          <rect x="0" y="7" width="32" height="8" rx="4" fill="url(#aff)" opacity="0.7"/>
+        </svg>
+        <div class="flow-text">
+          <div class="flow-name">raw affect</div>
+          <div class="flow-desc">the brain receives it as vague, unpleasant — no story yet</div>
+        </div>
+      </div>
+      <!-- step 3: construction -->
+      <div class="flow-step step-3">
+        <svg class="flow-icon" aria-hidden="true" width="32" height="22" viewBox="0 0 32 22" fill="none">
+          <rect x="2" y="2" width="12" height="12" rx="3" stroke="rgba(160,120,60,.7)" stroke-width="2" fill="none"/>
+          <path d="M14 8 L20 8 L20 20 L8 20 L8 14" stroke="rgba(160,120,60,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <div class="flow-text">
+          <div class="flow-name">construction</div>
+          <div class="flow-desc">the brain builds a story. uses the nearest material. often: him.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <div class="divider"></div>
+    <div class="cover-sub">it might be a metabolic accounting error.</div>
+  </div>
+
+  <div class="wm-corner">mirrah</div>
+</div>
+</body>
+</html>
