@@ -1,11 +1,12 @@
 {
   "_comment": "Authoritative post manifest. PUBLISH CONTROL: a post goes live only when published=true AND publish_date<=today (the static site must be rebuilt for a scheduled date to take effect — re-run build.py). Default is draft. order = display order on the index. kit = folder under content_kits_root. slug = output filename + canonical path. 'note' flags posts whose source contains author NEEDS-SOURCING markers — verify those claims before publishing.",
+  "site_base_url": "https://mirrah.app",
   "content_kits_root": "/Users/yanivrozenblat/claude-research/mirrah/content/content_kits",
   "posts": [
-    { "order": 1,  "slug": "anxiety-feels-like-excitement",            "kit": "anxiety-excitement-same-body-2026-05-21",          "published": true,  "publish_date": "2026-05-23" },
-    { "order": 2,  "slug": "does-naming-your-emotions-work",            "kit": "naming-the-feeling-2026-05-21",                    "published": true,  "publish_date": "2026-05-27" },
-    { "order": 3,  "slug": "why-loneliness-feels-physical",             "kit": "loneliness-like-hunger-2026-05-21",                "published": true,  "publish_date": "2026-05-31" },
-    { "order": 4,  "slug": "why-am-i-so-emotional-for-no-reason",       "kit": "mood-is-metabolic-2026-05-21",                     "published": true,  "publish_date": "2026-06-04" },
+    { "order": 1,  "slug": "anxiety-feels-like-excitement",            "kit": "anxiety-excitement-same-body-2026-05-21",          "published": true,  "publish_date": "2026-05-25" },
+    { "order": 2,  "slug": "does-naming-your-emotions-work",            "kit": "naming-the-feeling-2026-05-21",                    "published": true,  "publish_date": "2026-05-25" },
+    { "order": 3,  "slug": "why-loneliness-feels-physical",             "kit": "loneliness-like-hunger-2026-05-21",                "published": true,  "publish_date": "2026-05-25" },
+    { "order": 4,  "slug": "why-am-i-so-emotional-for-no-reason",       "kit": "mood-is-metabolic-2026-05-21",                     "published": true,  "publish_date": "2026-05-25" },
 
     { "order": 5,  "slug": "why-do-i-overreact-to-small-things",        "kit": "reaction-is-time-travel-2026-05-21",               "published": false, "note": "verify the 90-second amygdala figure (attributed to Jill Bolte Taylor)" },
     { "order": 6,  "slug": "vagus-nerve-shutdown-deep-breathing",       "kit": "vagus-nerve-not-off-switch-2026-05-21",            "published": false, "note": "ADHD dorsal-shutdown section flagged NEEDS SOURCING (polyvagal + ADHD overlap)" },

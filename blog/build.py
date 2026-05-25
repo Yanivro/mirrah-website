@@ -15,10 +15,15 @@ from datetime import datetime
 # ── path resolution ───────────────────────────────────────────────────────────
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 BLOG_DIR = SCRIPT_DIR  # build.py lives in blog/
+REPO_DIR = os.path.dirname(BLOG_DIR)  # one level up = repo root
 
 
 def blog_path(*parts):
     return os.path.join(BLOG_DIR, *parts)
+
+
+def repo_path(*parts):
+    return os.path.join(REPO_DIR, *parts)
 
 
 # ── frontmatter parser ────────────────────────────────────────────────────────
@@ -122,10 +127,11 @@ def _unquote(s):
 
 # ── field normalisation ───────────────────────────────────────────────────────
 
-def normalise(fm, slug):
+def normalise(fm, slug, blog_base):
     """
     Produce a normalised dict from the inconsistent frontmatter keys.
     slug is always taken from posts.json (authoritative).
+    blog_base is the absolute base URL for the blog (e.g. https://mirrah.app/blog).
     """
     def first(*keys):
         for k in keys:
@@ -160,11 +166,12 @@ def normalise(fm, slug):
     except ValueError:
         date_human = date_iso
 
-    canonical = first('canonical', 'canonicalUrl')
-    if not canonical:
-        canonical = f'https://mirrah.app/blog/{slug}'
+    # Canonical always uses config-derived BLOG_BASE + slug + .html
+    canonical = f'{blog_base}/{slug}.html'
 
     cover = f'assets/covers/{slug}.png'
+    # Absolute cover image URL for og:image / twitter:image
+    image_url = f'{blog_base}/assets/covers/{slug}.png'
 
     return {
         'title': title,
@@ -173,6 +180,7 @@ def normalise(fm, slug):
         'date_iso': date_iso,
         'date_human': date_human,
         'canonical': canonical,
+        'image_url': image_url,
         'slug': slug,
         'cover': cover,
     }
@@ -328,6 +336,61 @@ def extract_jsonld(body):
 
     jsonld_str = '\n'.join(scripts)
     return jsonld_str, body_clean
+
+
+# ── Article JSON-LD builder ───────────────────────────────────────────────────
+
+def build_article_jsonld(meta):
+    """
+    Build an Article JSON-LD <script> tag for the post.
+    Returns a fully-formed <script type="application/ld+json">…</script> string.
+    """
+    # Escape double-quotes in string values
+    def esc(s):
+        return str(s).replace('\\', '\\\\').replace('"', '\\"')
+
+    site_url = 'https://mirrah.app'
+    obj = {
+        '@context': 'https://schema.org',
+        '@type': 'Article',
+        'headline': meta['title'],
+        'description': meta['description'],
+        'datePublished': meta['date_iso'],
+        'dateModified': meta.get('date_modified') or meta['date_iso'],
+        'author': {'@type': 'Organization', 'name': 'Mirrah', 'url': site_url},
+        'publisher': {'@type': 'Organization', 'name': 'Mirrah', 'url': site_url},
+        'mainEntityOfPage': {'@type': 'WebPage', '@id': meta['canonical']},
+        'image': meta['image_url'],
+        'keywords': meta['keyword'],
+    }
+
+    lines = ['{']
+    lines.append(f'  "@context": "{esc(obj["@context"])}",')
+    lines.append(f'  "@type": "{esc(obj["@type"])}",')
+    lines.append(f'  "headline": "{esc(obj["headline"])}",')
+    lines.append(f'  "description": "{esc(obj["description"])}",')
+    lines.append(f'  "datePublished": "{esc(obj["datePublished"])}",')
+    lines.append(f'  "dateModified": "{esc(obj["dateModified"])}",')
+    lines.append('  "author": {')
+    lines.append(f'    "@type": "{esc(obj["author"]["@type"])}",')
+    lines.append(f'    "name": "{esc(obj["author"]["name"])}",')
+    lines.append(f'    "url": "{esc(obj["author"]["url"])}"')
+    lines.append('  },')
+    lines.append('  "publisher": {')
+    lines.append(f'    "@type": "{esc(obj["publisher"]["@type"])}",')
+    lines.append(f'    "name": "{esc(obj["publisher"]["name"])}",')
+    lines.append(f'    "url": "{esc(obj["publisher"]["url"])}"')
+    lines.append('  },')
+    lines.append('  "mainEntityOfPage": {')
+    lines.append(f'    "@type": "{esc(obj["mainEntityOfPage"]["@type"])}",')
+    lines.append(f'    "@id": "{esc(obj["mainEntityOfPage"]["@id"])}"')
+    lines.append('  },')
+    lines.append(f'  "image": "{esc(obj["image"])}",')
+    lines.append(f'  "keywords": "{esc(obj["keywords"])}"')
+    lines.append('}')
+
+    content = '\n'.join(lines)
+    return f'<script type="application/ld+json">\n{content}\n</script>'
 
 
 # ── H1 stripper ───────────────────────────────────────────────────────────────
@@ -795,6 +858,31 @@ def build_card(card_template, meta, rt):
     return fill_template(card_template, tokens)
 
 
+# ── related posts builder ─────────────────────────────────────────────────────
+
+def build_related_links(current_slug, live_posts_meta):
+    """
+    Build the related-posts HTML block for the current post.
+    live_posts_meta is a list of (slug, title) for ALL currently-published posts,
+    in index order. We exclude the current post and take up to 3 others.
+    Returns HTML string (empty string if fewer than 1 other post exists).
+    """
+    others = [(s, t) for s, t in live_posts_meta if s != current_slug]
+    if not others:
+        return ''
+    items = others[:3]
+    links = ''.join(
+        f'<li><a href="{slug}.html">{html_escape(title)}</a></li>'
+        for slug, title in items
+    )
+    return (
+        '<nav class="related-posts" aria-label="more from the space between">'
+        '<span class="related-eyebrow">more from the space between</span>'
+        f'<ul>{links}</ul>'
+        '</nav>'
+    )
+
+
 # ── index.html card region updater ───────────────────────────────────────────
 
 START_MARKER = '<!-- CARDS:START -->'
@@ -822,7 +910,8 @@ def update_index(index_path, cards_html):
 
 # ── per-post build ────────────────────────────────────────────────────────────
 
-def build_post(post_entry, kits_root, template, card_template):
+def build_post(post_entry, kits_root, template, card_template, blog_base,
+               live_posts_meta):
     slug = post_entry['slug']
     kit  = post_entry['kit']
     md_path = os.path.join(kits_root, kit, 'seo-blog-post.md')
@@ -834,7 +923,7 @@ def build_post(post_entry, kits_root, template, card_template):
         raw = f.read()
 
     fm, body = parse_frontmatter(raw)
-    meta = normalise(fm, slug)
+    meta = normalise(fm, slug, blog_base)
 
     # Fallback title from slug if missing
     if not meta['title']:
@@ -844,7 +933,14 @@ def build_post(post_entry, kits_root, template, card_template):
 
     # Extract JSON-LD first (```json and ```html ld+json fences) so we capture
     # schema blocks before strip_publisher_sections removes their sections.
-    jsonld, body = extract_jsonld(body)
+    source_jsonld, body = extract_jsonld(body)
+
+    # Build Article JSON-LD and prepend it before any source FAQPage script
+    article_script = build_article_jsonld(meta)
+    if source_jsonld:
+        combined_jsonld = article_script + '\n' + source_jsonld
+    else:
+        combined_jsonld = article_script
 
     # Strip publisher-only sections (schema headings, changelog, lead-ins, etc.)
     body = strip_publisher_sections(body)
@@ -858,9 +954,12 @@ def build_post(post_entry, kits_root, template, card_template):
     # Reading time
     rt = reading_time(body_html)
 
-    # Fill article template
+    # Build related-posts block
+    related_html = build_related_links(slug, live_posts_meta)
+
+    # Fill article template.
     # The template wraps {{POST_JSONLD}} in a single <script> tag.
-    # extract_jsonld now returns fully-formed <script> tag(s), so we replace
+    # combined_jsonld now returns fully-formed <script> tag(s), so we replace
     # the entire wrapper + token string to avoid double-wrapping.
     JSONLD_PLACEHOLDER = '<script type="application/ld+json">{{POST_JSONLD}}</script>'
     tokens = {
@@ -868,13 +967,15 @@ def build_post(post_entry, kits_root, template, card_template):
         '{{POST_DESCRIPTION}}':  html_escape(meta['description']),
         '{{POST_KEYWORD}}':      html_escape(meta['keyword']),
         '{{POST_CANONICAL}}':    meta['canonical'],
+        '{{POST_IMAGE}}':        meta['image_url'],
         '{{POST_SLUG}}':         meta['slug'],
         '{{POST_DATE_ISO}}':     meta['date_iso'],
         '{{POST_DATE_HUMAN}}':   meta['date_human'],
         '{{POST_READING_TIME}}': str(rt),
         '{{POST_COVER}}':        meta['cover'],
         '{{POST_BODY_HTML}}':    body_html,
-        JSONLD_PLACEHOLDER:      jsonld,
+        '{{RELATED_LINKS}}':     related_html,
+        JSONLD_PLACEHOLDER:      combined_jsonld,
     }
     article_html = fill_template(template, tokens)
 
@@ -889,6 +990,76 @@ def build_post(post_entry, kits_root, template, card_template):
     return rt, card
 
 
+# ── sitemap.xml writer ────────────────────────────────────────────────────────
+
+def write_sitemap(site_base_url, blog_base, live_posts):
+    """
+    Write sitemap.xml to the repo root.
+    live_posts is a list of meta dicts for published posts (already filtered).
+    """
+    today = datetime.today().strftime('%Y-%m-%d')
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
+        # Homepage
+        '  <url>',
+        f'    <loc>{site_base_url}/</loc>',
+        f'    <lastmod>{today}</lastmod>',
+        '    <changefreq>monthly</changefreq>',
+        '    <priority>1.0</priority>',
+        '  </url>',
+        # Blog index
+        '  <url>',
+        f'    <loc>{blog_base}/</loc>',
+        f'    <lastmod>{today}</lastmod>',
+        '    <changefreq>weekly</changefreq>',
+        '    <priority>0.9</priority>',
+        '  </url>',
+    ]
+    for meta in live_posts:
+        lastmod = meta.get('date_modified') or meta['date_iso']
+        lines += [
+            '  <url>',
+            f'    <loc>{meta["canonical"]}</loc>',
+            f'    <lastmod>{lastmod}</lastmod>',
+            '    <changefreq>monthly</changefreq>',
+            '    <priority>0.8</priority>',
+            '  </url>',
+        ]
+    lines.append('</urlset>')
+
+    sitemap_path = repo_path('sitemap.xml')
+    with open(sitemap_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(lines) + '\n')
+    print(f'  sitemap.xml written ({len(live_posts)} post(s)).')
+
+
+# ── llms.txt writer ───────────────────────────────────────────────────────────
+
+def write_llms_txt(blog_base, live_posts):
+    """
+    Write llms.txt to the repo root following the llms.txt convention.
+    live_posts is a list of meta dicts for published posts, in index order.
+    """
+    lines = [
+        '# Mirrah — the space between',
+        '',
+        '> Mirrah is what goes between the impulse and the action. A nervous-system regulation companion — body-first, for the 90 seconds between the trigger and the text. “the space between” is its writing on the nervous system, anxious attachment, ADHD, and somatic regulation.',
+        '',
+        '## Articles',
+    ]
+    for meta in live_posts:
+        url = meta['canonical']
+        title = meta['title']
+        desc = meta['description']
+        lines.append(f'- [{title}]({url}): {desc}')
+
+    llms_path = repo_path('llms.txt')
+    with open(llms_path, 'w', encoding='utf-8') as f:
+        f.write('\n'.join(lines) + '\n')
+    print(f'  llms.txt written ({len(live_posts)} post(s)).')
+
+
 # ── main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -897,6 +1068,8 @@ def main():
     with open(posts_json_path, 'r', encoding='utf-8') as f:
         manifest = json.load(f)
 
+    site_base_url = manifest.get('site_base_url', 'https://mirrah.app')
+    blog_base = site_base_url + '/blog'
     kits_root = manifest['content_kits_root']
     posts = sorted(manifest['posts'], key=lambda p: p['order'])
 
@@ -921,10 +1094,37 @@ def main():
         pd = post.get('publish_date')
         return (not pd) or (pd <= today_iso)
 
+    # First pass: determine which posts are live and pre-load their slugs + titles
+    # for the related-posts links. We need this before building any post.
+    live_post_entries = [p for p in posts if is_live(p)]
+
+    # We need to load frontmatter for each live post to get titles.
+    # Build a quick (slug, title) list by doing minimal parsing.
+    live_posts_meta_brief = []  # list of (slug, title) for related-links
+    for p in live_post_entries:
+        slug = p['slug']
+        kit = p['kit']
+        md_path = os.path.join(kits_root, kit, 'seo-blog-post.md')
+        title = slug.replace('-', ' ').title()  # fallback
+        if os.path.exists(md_path):
+            try:
+                with open(md_path, 'r', encoding='utf-8') as f:
+                    raw = f.read()
+                fm, _ = parse_frontmatter(raw)
+                t = fm.get('meta-title') or fm.get('title') or ''
+                if isinstance(t, list):
+                    t = t[0] if t else ''
+                if t:
+                    title = str(t).strip()
+            except Exception:
+                pass
+        live_posts_meta_brief.append((slug, title))
+
     cards = []
     built = 0
     errors = 0
     held = []
+    live_metas = []  # collect full meta for sitemap/llms after building
 
     for post in posts:
         slug = post['slug']
@@ -938,10 +1138,23 @@ def main():
             held.append((slug, reason))
             continue
         try:
-            rt, card = build_post(post, kits_root, template, card_template)
+            rt, card = build_post(post, kits_root, template, card_template,
+                                  blog_base, live_posts_meta_brief)
             cards.append(card)
             print(f'  ✓ {slug}  ({rt} min)')
             built += 1
+            # Collect meta for sitemap + llms.txt
+            # Re-derive meta (cheap) for the sitemap entries
+            md_path = os.path.join(kits_root, post['kit'], 'seo-blog-post.md')
+            with open(md_path, 'r', encoding='utf-8') as f:
+                raw = f.read()
+            fm, _ = parse_frontmatter(raw)
+            meta = normalise(fm, slug, blog_base)
+            if not meta['title']:
+                meta['title'] = slug.replace('-', ' ').title()
+            if not meta['description']:
+                meta['description'] = meta['title']
+            live_metas.append(meta)
         except Exception as e:
             print(f'  ✗ {slug}  ERROR: {e}')
             errors += 1
@@ -950,6 +1163,10 @@ def main():
     cards_html = ('\n'.join(cards) + '\n') if cards else '\n'
     update_index(index_path, cards_html)
     print(f'\n  index.html updated with {len(cards)} published card(s).')
+
+    # Write sitemap.xml and llms.txt to repo root
+    write_sitemap(site_base_url, blog_base, live_metas)
+    write_llms_txt(blog_base, live_metas)
 
     if held:
         print(f'\n  Held back ({len(held)}):')
